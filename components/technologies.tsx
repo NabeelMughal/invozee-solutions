@@ -5,12 +5,12 @@ import { Code2, Database, Cloud, Zap } from 'lucide-react';
 
 export function Technologies() {
   const techs = {
-    frontend: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'],
-    backend: ['Node.js', 'Express.js', 'NestJS', 'Python'],
-    mobile: ['React Native', 'Flutter'],
-    database: ['PostgreSQL', 'MongoDB', 'MySQL'],
-    cloud: ['AWS', 'Azure', 'Google Cloud'],
-    ai: ['OpenAI', 'LangChain', 'Vector DB', 'Machine Learning'],
+    frontend: ['React', 'Next.js', 'TypeScript', 'Vue.js', 'Angular', 'Nuxt.js', 'Tailwind CSS', 'Material UI' ],
+    backend: ['Node.js', 'Express.js', 'NestJS', 'Python', 'Django', 'Flask', 'PHP', 'Laravel'],
+    mobile: ['React Native', 'Flutter', 'Kotlin', 'Swift', 'SwiftUI'],
+    database: ['PostgreSQL', 'MongoDB', 'MySQL', 'MariaDB', 'SQL Server', 'Supabase', 'Firebase', 'Oracle Database'],
+    cloud: ['AWS', 'Microsoft Azure', 'Google Cloud', 'Cloudflare', 'Docker', 'Kubernetes', 'GitLab CI/CD', 'Terraform'],
+    ai: ['OpenAI', 'LangChain', 'Deep Learning', 'Vector DB', 'Machine Learning', 'ChatGPT'],
   };
 
   const categories = [
@@ -18,7 +18,7 @@ export function Technologies() {
     { title: 'Backend', icon: Zap, techs: techs.backend },
     { title: 'Mobile', icon: Code2, techs: techs.mobile },
     { title: 'Database', icon: Database, techs: techs.database },
-    { title: 'Cloud', icon: Cloud, techs: techs.cloud },
+    { title: 'Cloud & DevOps', icon: Cloud, techs: techs.cloud },
     { title: 'AI/ML', icon: Code2, techs: techs.ai },
   ];
 
