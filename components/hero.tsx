@@ -82,7 +82,7 @@ export function Hero() {
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={`particle-${i}`}
-            className="absolute w-1 h-1 rounded-full"
+            className="absolute w-1 h-4"
             style={{
               background:
                 i % 2 === 0
