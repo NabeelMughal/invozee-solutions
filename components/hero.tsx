@@ -44,7 +44,7 @@ export function Hero() {
       {/* Animated Background Container */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Mesh Gradient Background - Premium effect */}
-        <svg className="absolute inset-0 w-full h-full opacity-[0.10]" preserveAspectRatio="none" viewBox="0 0 1000 1000">
+        {/* <svg className="absolute inset-0 w-full h-full opacity-[0.10]" preserveAspectRatio="none" viewBox="0 0 1000 1000">
           <defs>
             <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#0d2064" />
@@ -55,12 +55,11 @@ export function Hero() {
               <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
             </filter>
           </defs>
-          {/* Flowing curves and lines */}
           <path d="M 0 200 Q 250 150, 500 200 T 1000 200" stroke="url(#grad1)" strokeWidth="2" fill="none" filter="url(#blur)" />
           <path d="M 0 400 Q 250 350, 500 400 T 1000 400" stroke="url(#grad1)" strokeWidth="2" fill="none" filter="url(#blur)" opacity="0.6" />
           <path d="M 0 600 Q 250 550, 500 600 T 1000 600" stroke="url(#grad1)" strokeWidth="1.5" fill="none" filter="url(#blur)" opacity="0.4" />
           <path d="M 0 800 Q 250 750, 500 800 T 1000 800" stroke="url(#grad1)" strokeWidth="1" fill="none" filter="url(#blur)" opacity="0.2" />
-        </svg>
+        </svg> */}
 
         {/* Animated Gradient Wave - flowing effect */}
         <motion.div
