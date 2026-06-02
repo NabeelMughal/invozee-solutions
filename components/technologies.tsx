@@ -10,7 +10,7 @@ export function Technologies() {
     mobile: ['React Native', 'Flutter', 'Kotlin', 'Swift', 'SwiftUI', 'Xamarin'],
     database: ['PostgreSQL', 'MongoDB', 'MySQL', 'MariaDB', 'SQL Server', 'Supabase', 'Firebase', 'Oracle Database'],
     cloud: ['AWS', 'Microsoft Azure', 'Google Cloud', 'Cloudflare', 'Docker', 'Kubernetes', 'GitLab CI/CD', 'Terraform'],
-    ai: ['OpenAI', 'LangChain', 'Deep Learning', 'AI Agents', 'Vector DB', 'Machine Learning', 'ChatGPT'],
+    ai: ['OpenAI', 'LangChain', 'Deep Learning', 'AI Agents', 'Vector DB', 'Machine Learning', 'ChatGPT', 'LangGraph'],
   };
 
   const categories = [
