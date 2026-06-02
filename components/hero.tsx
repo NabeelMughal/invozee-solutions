@@ -4,22 +4,10 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 export function Hero() {
-  // Floating shape animation variants
+  // Animation variants for floating elements
   const floatingVariants = {
     animate: {
-      y: [0, -30, 0],
-      transition: {
-        duration: 6,
-        repeat: Infinity,
-        ease: 'easeInOut',
-      },
-    },
-  };
-
-  const floatingVariants2 = {
-    animate: {
-      y: [0, 30, 0],
-      x: [0, -20, 0],
+      y: [0, -40, 0],
       transition: {
         duration: 8,
         repeat: Infinity,
@@ -28,9 +16,21 @@ export function Hero() {
     },
   };
 
-  const rotatingVariants = {
+  const floatingVariantsX = {
     animate: {
-      rotate: 360,
+      x: [0, 40, 0],
+      y: [0, -30, 0],
+      transition: {
+        duration: 10,
+        repeat: Infinity,
+        ease: 'easeInOut',
+      },
+    },
+  };
+
+  const waveVariants = {
+    animate: {
+      backgroundPosition: ['0% 0%', '100% 0%'],
       transition: {
         duration: 20,
         repeat: Infinity,
@@ -40,81 +40,134 @@ export function Hero() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 pb-20 px-4 overflow-hidden">
-      {/* Main Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-white to-blue-50/10"></div>
-
-      {/* Animated Background Elements */}
+    <section className="relative min-h-screen flex items-center justify-center pt-20 pb-20 px-4 overflow-hidden bg-gradient-to-b from-background via-white to-blue-50/5">
+      {/* Animated Background Container */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Large floating blur orbs */}
+        {/* Mesh Gradient Background - Premium effect */}
+        <svg className="absolute inset-0 w-full h-full opacity-[0.08]" preserveAspectRatio="none" viewBox="0 0 1000 1000">
+          <defs>
+            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#0d2064" />
+              <stop offset="50%" stopColor="#f9ab12" />
+              <stop offset="100%" stopColor="#0d2064" />
+            </linearGradient>
+            <filter id="blur">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
+            </filter>
+          </defs>
+          {/* Flowing curves and lines */}
+          <path d="M 0 200 Q 250 150, 500 200 T 1000 200" stroke="url(#grad1)" strokeWidth="2" fill="none" filter="url(#blur)" />
+          <path d="M 0 400 Q 250 350, 500 400 T 1000 400" stroke="url(#grad1)" strokeWidth="2" fill="none" filter="url(#blur)" opacity="0.6" />
+          <path d="M 0 600 Q 250 550, 500 600 T 1000 600" stroke="url(#grad1)" strokeWidth="1.5" fill="none" filter="url(#blur)" opacity="0.4" />
+          <path d="M 0 800 Q 250 750, 500 800 T 1000 800" stroke="url(#grad1)" strokeWidth="1" fill="none" filter="url(#blur)" opacity="0.2" />
+        </svg>
+
+        {/* Animated Gradient Wave - flowing effect */}
+        <motion.div
+          variants={waveVariants}
+          animate="animate"
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            background: `linear-gradient(90deg, 
+              transparent 0%, 
+              rgba(249, 171, 18, 0.1) 25%, 
+              rgba(13, 32, 100, 0.1) 50%, 
+              rgba(249, 171, 18, 0.1) 75%, 
+              transparent 100%)`,
+            backgroundSize: '200% 100%',
+          }}
+        ></motion.div>
+
+        {/* Floating Particles - subtle dots */}
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={`particle-${i}`}
+            className="absolute w-1 h-1 rounded-full"
+            style={{
+              background: i % 2 === 0 ? 'rgba(13, 32, 100, 0.3)' : 'rgba(249, 171, 18, 0.2)',
+              left: `${15 + i * 12}%`,
+              top: `${20 + i * 8}%`,
+            }}
+            animate={{
+              y: [0, -80, 0],
+              opacity: [0.2, 0.6, 0.2],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 6 + i * 0.5,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay: i * 0.2,
+            }}
+          />
+        ))}
+
+        {/* Large Floating Blur Orbs with subtle animation */}
         <motion.div
           variants={floatingVariants}
           animate="animate"
-          className="absolute top-0 right-0 w-96 h-96 bg-accent/8 rounded-full blur-3xl opacity-60"
+          className="absolute -top-20 -right-20 w-96 h-96 rounded-full blur-3xl opacity-[0.07]"
+          style={{
+            background: 'linear-gradient(135deg, rgba(249, 171, 18, 0.3), rgba(13, 32, 100, 0.2))',
+          }}
         ></motion.div>
 
         <motion.div
-          variants={floatingVariants2}
+          variants={floatingVariantsX}
           animate="animate"
-          className="absolute bottom-0 left-0 w-96 h-96 bg-primary/8 rounded-full blur-3xl opacity-50"
+          className="absolute -bottom-20 -left-20 w-96 h-96 rounded-full blur-3xl opacity-[0.06]"
+          style={{
+            background: 'linear-gradient(135deg, rgba(13, 32, 100, 0.3), rgba(249, 171, 18, 0.1))',
+          }}
         ></motion.div>
 
-        {/* Subtle accent glow */}
+        {/* Subtle Center Glow */}
         <motion.div
           animate={{
-            opacity: [0.3, 0.6, 0.3],
+            opacity: [0.05, 0.12, 0.05],
+            scale: [1, 1.1, 1],
           }}
           transition={{
-            duration: 4,
+            duration: 6,
             repeat: Infinity,
             ease: 'easeInOut',
           }}
-          className="absolute top-1/3 right-1/4 w-64 h-64 bg-accent/10 rounded-full blur-3xl"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full blur-3xl opacity-[0.08]"
+          style={{
+            background: 'radial-gradient(circle, rgba(249, 171, 18, 0.2), transparent)',
+          }}
         ></motion.div>
 
-        {/* Animated floating geometric shapes - Top Right */}
-        <motion.div
-          variants={rotatingVariants}
-          animate="animate"
-          className="absolute top-20 right-20 w-20 h-20 border border-accent/20 rounded-lg opacity-40"
-        ></motion.div>
-
-        {/* Animated floating geometric shapes - Middle Left */}
-        <motion.div
-          variants={floatingVariants}
-          animate="animate"
-          className="absolute top-1/3 left-10 w-16 h-16 border border-primary/20 rounded-full opacity-30"
-        ></motion.div>
-
-        {/* Animated floating geometric shapes - Bottom Right */}
-        <motion.div
-          variants={floatingVariants2}
-          animate="animate"
-          className="absolute bottom-32 right-1/3 w-24 h-24 border-2 border-accent/15 rounded-lg opacity-25 transform rotate-45"
-        ></motion.div>
-
-        {/* Tech-inspired grid pattern overlay - subtle */}
-        <div className="absolute inset-0 opacity-[0.02]" style={{
-          backgroundImage: 'linear-gradient(0deg, transparent 24%, rgba(13, 32, 100, 0.05) 25%, rgba(13, 32, 100, 0.05) 26%, transparent 27%, transparent 74%, rgba(13, 32, 100, 0.05) 75%, rgba(13, 32, 100, 0.05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(13, 32, 100, 0.05) 25%, rgba(13, 32, 100, 0.05) 26%, transparent 27%, transparent 74%, rgba(13, 32, 100, 0.05) 75%, rgba(13, 32, 100, 0.05) 76%, transparent 77%, transparent)',
-          backgroundSize: '50px 50px',
-        }}></div>
-
-        {/* Subtle animated gradient shift */}
+        {/* Animated flowing lines - diagonal */}
         <motion.div
           animate={{
-            backgroundPosition: ['0% 0%', '100% 100%'],
+            x: [0, 100, 0],
+            opacity: [0.05, 0.12, 0.05],
           }}
           transition={{
-            duration: 15,
+            duration: 12,
             repeat: Infinity,
-            ease: 'linear',
+            ease: 'easeInOut',
           }}
-          className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity"
+          className="absolute inset-0 opacity-[0.04]"
           style={{
-            background: 'linear-gradient(45deg, #0d2064, #f9ab12, #0d2064)',
-            backgroundSize: '200% 200%',
+            background: `linear-gradient(45deg, 
+              transparent 0%, 
+              rgba(13, 32, 100, 0.1) 25%, 
+              transparent 50%)`,
+            backgroundSize: '200px 200px',
           }}
         ></motion.div>
+
+        {/* Tech Grid Pattern - extremely subtle */}
+        <div 
+          className="absolute inset-0 opacity-[0.015]"
+          style={{
+            backgroundImage: `linear-gradient(0deg, transparent 24%, rgba(13, 32, 100, 0.1) 25%, rgba(13, 32, 100, 0.1) 26%, transparent 27%, transparent 74%, rgba(13, 32, 100, 0.1) 75%, rgba(13, 32, 100, 0.1) 76%, transparent 77%, transparent),
+              linear-gradient(90deg, transparent 24%, rgba(13, 32, 100, 0.1) 25%, rgba(13, 32, 100, 0.1) 26%, transparent 27%, transparent 74%, rgba(13, 32, 100, 0.1) 75%, rgba(13, 32, 100, 0.1) 76%, transparent 77%, transparent)`,
+            backgroundSize: '60px 60px',
+          }}
+        ></div>
       </div>
 
       <div className="max-w-5xl mx-auto relative z-10">
