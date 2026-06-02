@@ -70,37 +70,64 @@ export function Testimonials() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
+  const [cardsPerSlide, setCardsPerSlide] = useState(3);
+
+  useEffect(() => {
+    const updateCardsPerSlide = () => {
+      if (window.innerWidth < 768) {
+        setCardsPerSlide(1);
+      } else if (window.innerWidth < 1024) {
+        setCardsPerSlide(2);
+      } else {
+        setCardsPerSlide(3);
+      }
+    };
+
+    updateCardsPerSlide();
+    window.addEventListener('resize', updateCardsPerSlide);
+    return () => window.removeEventListener('resize', updateCardsPerSlide);
+  }, []);
 
   useEffect(() => {
     if (!isAutoPlay) return;
 
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+      setCurrentIndex((prev) =>
+        prev + cardsPerSlide >= testimonials.length
+          ? 0
+          : prev + cardsPerSlide
+      );
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [isAutoPlay, testimonials.length]);
+  }, [isAutoPlay, testimonials.length, cardsPerSlide]);
 
   const goToPrevious = () => {
     setCurrentIndex((prev) =>
-      prev === 0 ? testimonials.length - 1 : prev - 1
+      prev === 0 ? Math.max(0, testimonials.length - cardsPerSlide) : prev - cardsPerSlide
     );
     setIsAutoPlay(false);
   };
 
   const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    setCurrentIndex((prev) =>
+      prev + cardsPerSlide >= testimonials.length ? 0 : prev + cardsPerSlide
+    );
     setIsAutoPlay(false);
   };
 
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index);
-    setIsAutoPlay(false);
+  const getVisibleTestimonials = () => {
+    const visible = [];
+    for (let i = 0; i < cardsPerSlide; i++) {
+      const index = (currentIndex + i) % testimonials.length;
+      visible.push(testimonials[index]);
+    }
+    return visible;
   };
 
   return (
     <section className="py-20 px-4 bg-white">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -118,54 +145,64 @@ export function Testimonials() {
 
         {/* Carousel Container */}
         <div
-          className="relative bg-gradient-to-br from-blue-50/50 to-white rounded-2xl border border-gray-200 p-8 md:p-12"
+          className="relative"
           onMouseEnter={() => setIsAutoPlay(false)}
           onMouseLeave={() => setIsAutoPlay(true)}
         >
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className="min-h-64 flex flex-col justify-between"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             >
-              {/* Stars */}
-              <div className="flex gap-1 mb-6">
-                {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-5 h-5 fill-accent text-accent"
-                  />
-                ))}
-              </div>
+              {getVisibleTestimonials().map((testimonial, idx) => (
+                <motion.div
+                  key={testimonial.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className="bg-white rounded-xl border border-gray-200 p-6 md:p-8 shadow-md hover:shadow-lg transition-all hover:-translate-y-2"
+                >
+                  {/* Stars */}
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-4 h-4 md:w-5 md:h-5 fill-accent text-accent"
+                      />
+                    ))}
+                  </div>
 
-              {/* Quote Text */}
-              <p className="text-xl md:text-2xl text-gray-800 font-light mb-8 leading-relaxed italic">
-                &quot;{testimonials[currentIndex].text}&quot;
-              </p>
+                  {/* Quote Text */}
+                  <p className="text-sm md:text-base text-gray-700 mb-6 leading-relaxed line-clamp-4">
+                    &quot;{testimonial.text}&quot;
+                  </p>
 
-              {/* Client Name */}
-              <p className="text-lg font-bold text-primary">
-                {testimonials[currentIndex].name}
-              </p>
+                  {/* Client Name */}
+                  <p className="text-sm md:text-base font-bold text-primary">
+                    {testimonial.name}
+                  </p>
+                </motion.div>
+              ))}
             </motion.div>
           </AnimatePresence>
 
           {/* Navigation Arrows */}
           <button
             onClick={goToPrevious}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-primary text-white hover:bg-primary/90 transition-all hover:scale-110 md:left-8"
-            aria-label="Previous testimonial"
+            className="absolute -left-6 md:-left-8 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-accent text-white hover:bg-accent/90 transition-all hover:scale-110 shadow-lg hover:shadow-xl"
+            aria-label="Previous testimonials"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
 
           <button
             onClick={goToNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-primary text-white hover:bg-primary/90 transition-all hover:scale-110 md:right-8"
-            aria-label="Next testimonial"
+            className="absolute -right-6 md:-right-8 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-accent text-white hover:bg-accent/90 transition-all hover:scale-110 shadow-lg hover:shadow-xl"
+            aria-label="Next testimonials"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
@@ -173,25 +210,28 @@ export function Testimonials() {
 
         {/* Pagination Dots */}
         <div className="flex justify-center gap-2 mt-8 flex-wrap">
-          {testimonials.map((_, index) => (
+          {Array.from({ length: Math.ceil(testimonials.length / cardsPerSlide) }).map((_, index) => (
             <motion.button
               key={index}
-              onClick={() => goToSlide(index)}
+              onClick={() => {
+                setCurrentIndex(index * cardsPerSlide);
+                setIsAutoPlay(false);
+              }}
               className={`transition-all ${
-                index === currentIndex
+                Math.floor(currentIndex / cardsPerSlide) === index
                   ? 'bg-primary w-8 h-3'
                   : 'bg-gray-300 w-3 h-3 hover:bg-gray-400'
               } rounded-full`}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              aria-label={`Go to testimonial ${index + 1}`}
+              aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
 
         {/* Slide Counter */}
         <div className="text-center mt-6 text-gray-600 text-sm">
-          {currentIndex + 1} / {testimonials.length}
+          {Math.floor(currentIndex / cardsPerSlide) + 1} / {Math.ceil(testimonials.length / cardsPerSlide)}
         </div>
       </div>
     </section>
