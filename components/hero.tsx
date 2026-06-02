@@ -79,10 +79,10 @@ export function Hero() {
         ></motion.div>
 
         {/* Floating Particles - subtle dots */}
-        {[...Array(8)].map((_, i) => (
+        {/* {[...Array(8)].map((_, i) => (
           <motion.div
             key={`particle-${i}`}
-            className="absolute w-1 h-4"
+            className="absolute w-1 h-1 rounded-full"
             style={{
               background:
                 i % 2 === 0
@@ -103,7 +103,7 @@ export function Hero() {
               delay: i * 0.2,
             }}
           />
-        ))}
+        ))} */}
 
         {/* Large Floating Blur Orbs with subtle animation */}
         <motion.div
