@@ -98,7 +98,7 @@ export function Process() {
                   </div>
 
                   {/* Step Number */}
-                  <div className="absolute top-0 right-4 -translate-y-2 w-8 h-8 rounded-full bg-accent text-primary font-bold flex items-center justify-center text-sm">
+                  <div className="absolute top-0 right-4 -translate-y-2 w-8 h-8 rounded-full bg-primary text-white font-bold flex items-center justify-center text-sm">
                     {index + 1}
                   </div>
                 </motion.div>
