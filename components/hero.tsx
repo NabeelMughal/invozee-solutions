@@ -44,7 +44,7 @@ export function Hero() {
       {/* Animated Background Container */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Mesh Gradient Background - Premium effect */}
-        <svg className="absolute inset-0 w-full h-full opacity-[0.08]" preserveAspectRatio="none" viewBox="0 0 1000 1000">
+        <svg className="absolute inset-0 w-full h-full opacity-[0.10]" preserveAspectRatio="none" viewBox="0 0 1000 1000">
           <defs>
             <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#0d2064" />
