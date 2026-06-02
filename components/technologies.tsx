@@ -6,11 +6,11 @@ import { Code2, Database, Cloud, Zap } from 'lucide-react';
 export function Technologies() {
   const techs = {
     frontend: ['React', 'Next.js', 'TypeScript', 'Vue.js', 'Angular', 'Nuxt.js', 'Tailwind CSS', 'Wordpress', 'Shopify', 'HTML5', 'CSS3' ],
-    backend: ['Node.js', 'Express.js', 'NestJS', 'Python', 'Django', 'Flask', 'PHP', 'Laravel'],
-    mobile: ['React Native', 'Flutter', 'Kotlin', 'Swift', 'SwiftUI'],
+    backend: ['Node.js', 'Express.js', 'NestJS', 'Python', 'Django', 'Flask', 'PHP', 'Laravel', 'FastAPI', 'ASP.NET Core'],
+    mobile: ['React Native', 'Flutter', 'Kotlin', 'Swift', 'SwiftUI', 'Xamarin'],
     database: ['PostgreSQL', 'MongoDB', 'MySQL', 'MariaDB', 'SQL Server', 'Supabase', 'Firebase', 'Oracle Database'],
     cloud: ['AWS', 'Microsoft Azure', 'Google Cloud', 'Cloudflare', 'Docker', 'Kubernetes', 'GitLab CI/CD', 'Terraform'],
-    ai: ['OpenAI', 'LangChain', 'Deep Learning', 'Vector DB', 'Machine Learning', 'ChatGPT'],
+    ai: ['OpenAI', 'LangChain', 'Deep Learning', 'AI Agents', 'Vector DB', 'Machine Learning', 'ChatGPT'],
   };
 
   const categories = [
