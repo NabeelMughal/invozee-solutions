@@ -66,7 +66,7 @@ export function Hero() {
         <motion.div
           variants={waveVariants}
           animate="animate"
-          className="absolute inset-0 opacity-[0.06]"
+          className="absolute inset-0 opacity-[0.50]"
           style={{
             background: `linear-gradient(90deg, 
               transparent 0%, 
