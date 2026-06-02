@@ -7,7 +7,7 @@ export function Technologies() {
   const techs = {
     frontend: ['React', 'Next.js', 'TypeScript', 'Vue.js', 'Angular', 'Nuxt.js', 'Tailwind CSS', 'Wordpress', 'Shopify', 'HTML5', 'CSS3' ],
     backend: ['Node.js', 'Express.js', 'NestJS', 'Python', 'Django', 'Flask', 'PHP', 'Laravel', 'FastAPI', 'ASP.NET Core'],
-    mobile: ['React Native', 'Flutter', 'Kotlin', 'Swift', 'SwiftUI', 'Xamarin'],
+    mobile: ['React Native', 'Flutter', 'Kotlin', 'Swift', 'SwiftUI', 'Xamarin', 'Ionic'],
     database: ['PostgreSQL', 'MongoDB', 'MySQL', 'MariaDB', 'SQL Server', 'Supabase', 'Firebase', 'Oracle Database'],
     cloud: ['AWS', 'Microsoft Azure', 'Google Cloud', 'Cloudflare', 'Docker', 'Kubernetes', 'GitLab CI/CD', 'Terraform'],
     ai: ['OpenAI', 'LangChain', 'Deep Learning', 'AI Agents', 'Vector DB', 'Machine Learning', 'ChatGPT', 'LangGraph'],
