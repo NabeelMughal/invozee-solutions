@@ -84,13 +84,16 @@ export function Hero() {
             key={`particle-${i}`}
             className="absolute w-1 h-1 rounded-full"
             style={{
-              background: i % 2 === 0 ? 'rgba(13, 32, 100, 0.3)' : 'rgba(249, 171, 18, 0.2)',
+              background:
+                i % 2 === 0
+                  ? 'rgba(13, 32, 100, 0.6)'
+                  : 'rgba(249, 171, 18, 0.45)',
               left: `${15 + i * 12}%`,
               top: `${20 + i * 8}%`,
             }}
             animate={{
               y: [0, -80, 0],
-              opacity: [0.2, 0.6, 0.2],
+              opacity: [0.3, 0.8, 0.3],
               scale: [1, 1.2, 1],
             }}
             transition={{
@@ -160,7 +163,7 @@ export function Hero() {
         ></motion.div>
 
         {/* Tech Grid Pattern - extremely subtle */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.015]"
           style={{
             backgroundImage: `linear-gradient(0deg, transparent 24%, rgba(13, 32, 100, 0.1) 25%, rgba(13, 32, 100, 0.1) 26%, transparent 27%, transparent 74%, rgba(13, 32, 100, 0.1) 75%, rgba(13, 32, 100, 0.1) 76%, transparent 77%, transparent),
