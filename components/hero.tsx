@@ -86,8 +86,8 @@ export function Hero() {
             style={{
               background:
                 i % 2 === 0
-                  ? 'rgba(13, 32, 100, 0.50)'
-                  : 'rgba(249, 171, 18, 0.50)',
+                  ? 'rgba(13, 32, 100)'
+                  : 'rgba(249, 171, 18)',
               left: `${15 + i * 12}%`,
               top: `${20 + i * 8}%`,
             }}
