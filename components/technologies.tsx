@@ -5,7 +5,7 @@ import { Code2, Database, Cloud, Zap } from 'lucide-react';
 
 export function Technologies() {
   const techs = {
-    frontend: ['React', 'Next.js', 'TypeScript', 'Vue.js', 'Angular', 'Nuxt.js', 'Tailwind CSS', 'Material UI' ],
+    frontend: ['React', 'Next.js', 'TypeScript', 'Vue.js', 'Angular', 'Nuxt.js', 'Tailwind CSS', 'Wordpress', 'Shopify', 'HTML5', 'CSS3' ],
     backend: ['Node.js', 'Express.js', 'NestJS', 'Python', 'Django', 'Flask', 'PHP', 'Laravel'],
     mobile: ['React Native', 'Flutter', 'Kotlin', 'Swift', 'SwiftUI'],
     database: ['PostgreSQL', 'MongoDB', 'MySQL', 'MariaDB', 'SQL Server', 'Supabase', 'Firebase', 'Oracle Database'],
