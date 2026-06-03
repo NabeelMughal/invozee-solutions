@@ -27,7 +27,7 @@ export function Navbar() {
             whileHover={{ scale: 1.05 }}
             className="text-2xl font-bold text-primary"
           >
-            <img src="../public/logo.png" alt="Logo"/>
+            <img className='w-40' src="../transparent_logo.png" alt="Logo"/>
             
           </motion.div>
 
