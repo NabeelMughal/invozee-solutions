@@ -27,7 +27,8 @@ export function Navbar() {
             whileHover={{ scale: 1.05 }}
             className="text-2xl font-bold text-primary"
           >
-            Invozee
+            <img src="../public/logo.png" alt="Logo"/>
+            
           </motion.div>
 
           {/* Desktop Menu */}
