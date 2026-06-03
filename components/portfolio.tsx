@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
-import grayValley from '../GrayVally.png';
+// import grayValley from '../public/portfolio/GrayVally.png';
 
 export function Portfolio() {
   const [filter, setFilter] = useState('all');
@@ -11,67 +11,59 @@ export function Portfolio() {
   const projects = [
     {
       id: 1,
-      title: 'AI SaaS Platform',
+      title: 'GrayVally - AI-Driven Software Solutions',
       category: 'ai',
-      image: grayValley,
+      image: '/portfolio/GrayVally.png',
       technologies: ['React', 'Node.js', 'OpenAI API', 'PostgreSQL'],
-      description: 'Enterprise AI platform for content generation and analysis',
+      description: 'AI-powered business growth platform with scalable backends and precision-engineered frontends',
     },
     {
       id: 2,
-      title: 'CRM System',
+      title: 'Buildertrend - Construction Management SaaS',
       category: 'enterprise',
-      image: 'bg-gradient-to-br from-blue-400 to-blue-600',
+      image: '/portfolio/GrayVally.png',
       technologies: ['Next.js', 'TypeScript', 'MongoDB', 'Stripe'],
-      description: 'Complete customer relationship management solution',
+      description: 'Enterprise construction management platform with mobile app and AI-powered workflows',
     },
     {
       id: 3,
-      title: 'ERP Dashboard',
+      title: 'Lewis Hadden - Developer Portfolio',
       category: 'enterprise',
       image: 'bg-gradient-to-br from-green-400 to-green-600',
       technologies: ['React', 'Express', 'PostgreSQL', 'Chart.js'],
-      description: 'Comprehensive enterprise resource planning dashboard',
+      description: 'Modern developer portfolio showcasing React, Next.js, and advanced web technologies',
     },
     {
       id: 4,
-      title: 'E-commerce Platform',
+      title: 'SugarMD - HealthCare eCommerce Platform',
       category: 'web',
       image: 'bg-gradient-to-br from-orange-400 to-orange-600',
       technologies: ['Next.js', 'Prisma', 'Stripe', 'Tailwind CSS'],
-      description: 'Full-featured online store with inventory management',
+      description: 'Doctor-formulated healthcare product platform with Shopify integration and customer testimonials',
     },
     {
       id: 5,
-      title: 'Healthcare App',
+      title: 'Onfleet - Fleet & Delivery Management',
       category: 'mobile',
       image: 'bg-gradient-to-br from-red-400 to-red-600',
       technologies: ['React Native', 'Firebase', 'Node.js', 'HIPAA'],
-      description: 'Patient management and telemedicine platform',
+      description: 'AI-powered mobile delivery platform with real-time tracking and route optimization',
     },
     {
       id: 6,
-      title: 'Fintech Solution',
+      title: 'Gulshan Badda - Fine Dining Restaurant',
       category: 'enterprise',
       image: 'bg-gradient-to-br from-yellow-400 to-yellow-600',
       technologies: ['Next.js', 'Python', 'PostgreSQL', 'Stripe API'],
-      description: 'Digital payment and transaction platform',
+      description: 'Elegant restaurant platform with reservation system and menu management',
     },
     {
       id: 7,
-      title: 'Logistics Platform',
+      title: 'Transistor - Podcast Hosting & AI Processing',
       category: 'web',
       image: 'bg-gradient-to-br from-cyan-400 to-cyan-600',
       technologies: ['React', 'Node.js', 'Google Maps API', 'WebSocket'],
-      description: 'Real-time fleet tracking and management system',
-    },
-    {
-      id: 8,
-      title: 'Real Estate Portal',
-      category: 'web',
-      image: 'bg-gradient-to-br from-pink-400 to-pink-600',
-      technologies: ['Next.js', 'PostgreSQL', 'Mapbox', 'AWS'],
-      description: 'Property listings platform with advanced search',
+      description: 'Podcast platform with AI transcription, multi-platform distribution, and analytics',
     },
   ];
 
