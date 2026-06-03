@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
+// import grayValley from '../public/portfolio/GrayVally.png';
 
 export function Portfolio() {
   const [filter, setFilter] = useState('all');
@@ -10,67 +11,66 @@ export function Portfolio() {
   const projects = [
     {
       id: 1,
-      title: 'AI SaaS Platform',
+      title: 'GrayVally - AI-Driven Software Solutions',
       category: 'ai',
-      image: 'bg-gradient-to-br from-purple-400 to-purple-600',
+      link: 'https://www.grayvally.tech/',
+      image: '/portfolio/GrayVally.png',
       technologies: ['React', 'Node.js', 'OpenAI API', 'PostgreSQL'],
-      description: 'Enterprise AI platform for content generation and analysis',
+      description: 'AI-powered business growth platform with scalable backends and precision-engineered frontends',
     },
     {
       id: 2,
-      title: 'CRM System',
+      title: 'Buildertrend - Construction Management SaaS',
       category: 'enterprise',
-      image: 'bg-gradient-to-br from-blue-400 to-blue-600',
+      link: 'https://buildertrend.com/',
+      image: '/portfolio/Buildertrend.png',
       technologies: ['Next.js', 'TypeScript', 'MongoDB', 'Stripe'],
-      description: 'Complete customer relationship management solution',
+      description: 'Enterprise construction management platform with mobile app and AI-powered workflows',
     },
     {
       id: 3,
-      title: 'ERP Dashboard',
+      title: 'Lewis Hadden - Developer Portfolio',
       category: 'enterprise',
-      image: 'bg-gradient-to-br from-green-400 to-green-600',
+      link: 'https://portfolio.lewishadden.com/',
+      image: '/portfolio/LewisHadden.png',
       technologies: ['React', 'Express', 'PostgreSQL', 'Chart.js'],
-      description: 'Comprehensive enterprise resource planning dashboard',
+      description: 'Modern developer portfolio showcasing React, Next.js, and advanced web technologies',
     },
     {
       id: 4,
-      title: 'E-commerce Platform',
+      title: 'SugarMD - HealthCare eCommerce Platform',
       category: 'web',
-      image: 'bg-gradient-to-br from-orange-400 to-orange-600',
+      link: 'https://www.sugarmds.com/',
+      image: '/portfolio/SugarMD.png',
       technologies: ['Next.js', 'Prisma', 'Stripe', 'Tailwind CSS'],
-      description: 'Full-featured online store with inventory management',
+      description: 'Doctor-formulated healthcare product platform with Shopify integration and customer testimonials',
     },
     {
       id: 5,
-      title: 'Healthcare App',
+      title: 'Onfleet - Fleet & Delivery Management',
       category: 'mobile',
-      image: 'bg-gradient-to-br from-red-400 to-red-600',
+      link: 'https://onfleet.com/',
+      image: '/portfolio/Onfleet.png',
       technologies: ['React Native', 'Firebase', 'Node.js', 'HIPAA'],
-      description: 'Patient management and telemedicine platform',
+      description: 'AI-powered mobile delivery platform with real-time tracking and route optimization',
     },
     {
       id: 6,
-      title: 'Fintech Solution',
+      title: 'Gulshan Badda - Fine Dining Restaurant',
       category: 'enterprise',
-      image: 'bg-gradient-to-br from-yellow-400 to-yellow-600',
+      link: 'https://restaurant-gulshan.vercel.app/',
+      image: '/portfolio/GulshanBadda.png',
       technologies: ['Next.js', 'Python', 'PostgreSQL', 'Stripe API'],
-      description: 'Digital payment and transaction platform',
+      description: 'Elegant restaurant platform with reservation system and menu management',
     },
     {
       id: 7,
-      title: 'Logistics Platform',
+      title: 'Transistor - Podcast Hosting & AI Processing',
       category: 'web',
-      image: 'bg-gradient-to-br from-cyan-400 to-cyan-600',
+      link: 'https://transistor.fm/',
+      image: '/portfolio/Transistor.png',
       technologies: ['React', 'Node.js', 'Google Maps API', 'WebSocket'],
-      description: 'Real-time fleet tracking and management system',
-    },
-    {
-      id: 8,
-      title: 'Real Estate Portal',
-      category: 'web',
-      image: 'bg-gradient-to-br from-pink-400 to-pink-600',
-      technologies: ['Next.js', 'PostgreSQL', 'Mapbox', 'AWS'],
-      description: 'Property listings platform with advanced search',
+      description: 'Podcast platform with AI transcription, multi-platform distribution, and analytics',
     },
   ];
 
@@ -109,11 +109,10 @@ export function Portfolio() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setFilter(cat.id)}
-                className={`px-6 py-2 rounded-full font-semibold transition-all ${
-                  filter === cat.id
-                    ? 'bg-primary text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+                className={`px-6 py-2 rounded-full font-semibold transition-all ${filter === cat.id
+                  ? 'bg-primary text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
               >
                 {cat.label}
               </motion.button>
@@ -127,17 +126,23 @@ export function Portfolio() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {filtered.map((project, index) => (
-            <motion.div
+            <motion.a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
               key={project.id}
               layout
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
-              className="group cursor-pointer"
+              className="group cursor-pointer block"
             >
               <div className="relative overflow-hidden rounded-xl h-64 mb-4">
-                <div className={`w-full h-full ${project.image} transition-transform duration-500 group-hover:scale-110`}></div>
+                <div
+                  className="w-full h-full transition-transform duration-500 group-hover:scale-110 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${project.image})` }}
+                ></div>
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
                   <ExternalLink className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
@@ -158,7 +163,7 @@ export function Portfolio() {
                   </span>
                 ))}
               </div>
-            </motion.div>
+            </motion.a>
           ))}
         </motion.div>
       </div>
