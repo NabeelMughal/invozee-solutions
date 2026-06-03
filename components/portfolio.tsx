@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
+import grayValley from '../GrayVally.png';
 
 export function Portfolio() {
   const [filter, setFilter] = useState('all');
@@ -12,7 +13,7 @@ export function Portfolio() {
       id: 1,
       title: 'AI SaaS Platform',
       category: 'ai',
-      image: 'bg-gradient-to-br from-purple-400 to-purple-600',
+      image: grayValley,
       technologies: ['React', 'Node.js', 'OpenAI API', 'PostgreSQL'],
       description: 'Enterprise AI platform for content generation and analysis',
     },
@@ -109,11 +110,10 @@ export function Portfolio() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setFilter(cat.id)}
-                className={`px-6 py-2 rounded-full font-semibold transition-all ${
-                  filter === cat.id
+                className={`px-6 py-2 rounded-full font-semibold transition-all ${filter === cat.id
                     ? 'bg-primary text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+                  }`}
               >
                 {cat.label}
               </motion.button>
@@ -137,7 +137,10 @@ export function Portfolio() {
               className="group cursor-pointer"
             >
               <div className="relative overflow-hidden rounded-xl h-64 mb-4">
-                <div className={`w-full h-full ${project.image} transition-transform duration-500 group-hover:scale-110`}></div>
+               <div
+                  className="w-full h-full transition-transform duration-500 group-hover:scale-110 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${project.image})` }}
+                ></div>
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
                   <ExternalLink className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
