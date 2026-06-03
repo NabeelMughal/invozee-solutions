@@ -13,6 +13,7 @@ export function Portfolio() {
       id: 1,
       title: 'GrayVally - AI-Driven Software Solutions',
       category: 'ai',
+      link: 'https://www.grayvally.tech/',
       image: '/portfolio/GrayVally.png',
       technologies: ['React', 'Node.js', 'OpenAI API', 'PostgreSQL'],
       description: 'AI-powered business growth platform with scalable backends and precision-engineered frontends',
@@ -21,6 +22,7 @@ export function Portfolio() {
       id: 2,
       title: 'Buildertrend - Construction Management SaaS',
       category: 'enterprise',
+      link: 'https://buildertrend.com/',
       image: '/portfolio/Buildertrend.png',
       technologies: ['Next.js', 'TypeScript', 'MongoDB', 'Stripe'],
       description: 'Enterprise construction management platform with mobile app and AI-powered workflows',
@@ -29,6 +31,7 @@ export function Portfolio() {
       id: 3,
       title: 'Lewis Hadden - Developer Portfolio',
       category: 'enterprise',
+      link: 'https://portfolio.lewishadden.com/',
       image: '/portfolio/LewisHadden.png',
       technologies: ['React', 'Express', 'PostgreSQL', 'Chart.js'],
       description: 'Modern developer portfolio showcasing React, Next.js, and advanced web technologies',
@@ -37,6 +40,7 @@ export function Portfolio() {
       id: 4,
       title: 'SugarMD - HealthCare eCommerce Platform',
       category: 'web',
+      link: 'https://www.sugarmds.com/',
       image: '/portfolio/SugarMD.png',
       technologies: ['Next.js', 'Prisma', 'Stripe', 'Tailwind CSS'],
       description: 'Doctor-formulated healthcare product platform with Shopify integration and customer testimonials',
@@ -45,6 +49,7 @@ export function Portfolio() {
       id: 5,
       title: 'Onfleet - Fleet & Delivery Management',
       category: 'mobile',
+      link: 'https://onfleet.com/',
       image: '/portfolio/Onfleet.png',
       technologies: ['React Native', 'Firebase', 'Node.js', 'HIPAA'],
       description: 'AI-powered mobile delivery platform with real-time tracking and route optimization',
@@ -53,6 +58,7 @@ export function Portfolio() {
       id: 6,
       title: 'Gulshan Badda - Fine Dining Restaurant',
       category: 'enterprise',
+      link: 'https://restaurant-gulshan.vercel.app/',
       image: '/portfolio/GulshanBadda.png',
       technologies: ['Next.js', 'Python', 'PostgreSQL', 'Stripe API'],
       description: 'Elegant restaurant platform with reservation system and menu management',
@@ -61,6 +67,7 @@ export function Portfolio() {
       id: 7,
       title: 'Transistor - Podcast Hosting & AI Processing',
       category: 'web',
+      link: 'https://transistor.fm/',
       image: '/portfolio/Transistor.png',
       technologies: ['React', 'Node.js', 'Google Maps API', 'WebSocket'],
       description: 'Podcast platform with AI transcription, multi-platform distribution, and analytics',
@@ -103,8 +110,8 @@ export function Portfolio() {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setFilter(cat.id)}
                 className={`px-6 py-2 rounded-full font-semibold transition-all ${filter === cat.id
-                    ? 'bg-primary text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  ? 'bg-primary text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
               >
                 {cat.label}
@@ -119,17 +126,20 @@ export function Portfolio() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {filtered.map((project, index) => (
-            <motion.div
+            <motion.a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
               key={project.id}
               layout
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
-              className="group cursor-pointer"
+              className="group cursor-pointer block"
             >
               <div className="relative overflow-hidden rounded-xl h-64 mb-4">
-               <div
+                <div
                   className="w-full h-full transition-transform duration-500 group-hover:scale-110 bg-cover bg-center"
                   style={{ backgroundImage: `url(${project.image})` }}
                 ></div>
@@ -153,7 +163,7 @@ export function Portfolio() {
                   </span>
                 ))}
               </div>
-            </motion.div>
+            </motion.a>
           ))}
         </motion.div>
       </div>
