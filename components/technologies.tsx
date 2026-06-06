@@ -87,7 +87,7 @@ export function Technologies() {
             return (
               <div
                 key={index}
-                className="reveal-item opacity-0 translate-y-6 transition-all duration-700 group p-6 bg-white dark:bg-[#1a2a3a] rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                className="reveal-item opacity-0 translate-y-6 transition-all duration-700 group p-6 bg-white dark:bg-[#1a2a3a] rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                 style={{ transitionDelay: `${index * 70}ms` }}
               >
                 <div className="flex items-center gap-3 mb-5">

@@ -59,7 +59,7 @@ export function About({ featuredOnly = false }: { featuredOnly?: boolean }) {
           {displayedValues.map((value, index) => (
             <div
               key={index}
-              className="reveal-item opacity-0 translate-y-5 transition-all duration-700 flex gap-4 p-6 bg-white dark:bg-[#1a2a3a] rounded-xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+              className="reveal-item opacity-0 translate-y-5 transition-all duration-700 flex gap-4 p-6 bg-white dark:bg-[#1a2a3a] rounded-xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
               style={{ transitionDelay: `${index * 80}ms` }}
             >
               <CheckCircle2 className="w-5 h-5 text-[#f9ab12] flex-shrink-0 mt-1" />

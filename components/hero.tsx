@@ -323,8 +323,8 @@ export function Hero() {
           className="grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-gray-200/50 dark:border-white/10 pt-12"
         >
           {[
-            { number: '100+', label: 'Projects Delivered' },
-            { number: '50+', label: 'Happy Clients' },
+            { number: '99+', label: 'Projects Delivered' },
+            { number: '99+', label: 'Happy Clients' },
             { number: '10+', label: 'Technologies' },
             { number: '5+', label: 'Years Experience' },
           ].map((stat, index) => (
