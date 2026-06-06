@@ -325,7 +325,7 @@ export function Hero() {
           {[
             { number: '99+', label: 'Projects Delivered' },
             { number: '99+', label: 'Happy Clients' },
-            { number: '10+', label: 'Technologies' },
+            { number: '30+', label: 'Technologies' },
             { number: '5+', label: 'Years Experience' },
           ].map((stat, index) => (
             <div
