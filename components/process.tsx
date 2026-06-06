@@ -68,7 +68,7 @@ export function Process() {
                   {index + 1}
                 </div> */}
 
-                <div className="h-full p-6 bg-white dark:bg-[#1a2a3a] rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-center">
+                <div className="h-full p-6 bg-white dark:bg-[#1a2a3a] rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-center">
                   <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#f9ab12] to-orange-500 flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300">
                     <Icon className="w-7 h-7 text-white" />
                   </div>

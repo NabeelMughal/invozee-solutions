@@ -59,7 +59,7 @@ export function Services({ featuredOnly = false }: { featuredOnly?: boolean }) {
             return (
               <div
                 key={index}
-                className="reveal-item opacity-0 translate-y-6 transition-all duration-700 group p-8 bg-gradient-to-br from-white to-blue-50/20 dark:from-[#1a2a3a] dark:to-[#1a2a3a]/80 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300"
+                className="reveal-item opacity-0 translate-y-6 transition-all duration-700 group p-8 bg-gradient-to-br from-white to-blue-50/20 dark:from-[#1a2a3a] dark:to-[#1a2a3a]/80 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300"
                 style={{ transitionDelay: `${index * 70}ms` }}
               >
                 <div className="w-14 h-14 bg-[#f9ab12]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#f9ab12]/20 transition-colors duration-300">

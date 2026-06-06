@@ -69,7 +69,7 @@ export function Contact() {
                 <a
                   key={index}
                   href={info.href}
-                  className="flex gap-4 p-5 bg-gradient-to-br from-white to-blue-50/30 dark:from-[#1a2a3a] dark:to-[#1a2a3a] rounded-xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group"
+                  className="flex gap-4 p-5 bg-gradient-to-br from-white to-blue-50/30 dark:from-[#1a2a3a] dark:to-[#1a2a3a] rounded-xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group"
                 >
                   <div className="w-12 h-12 rounded-xl bg-[#f9ab12]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#f9ab12]/20 transition-colors duration-200">
                     <Icon className="w-5 h-5 text-[#f9ab12]" />
