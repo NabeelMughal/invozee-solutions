@@ -59,7 +59,7 @@ export function FAQ() {
             >
               <button
                 onClick={() => setOpenId(openId === index ? -1 : index)}
-                className="w-full px-6 py-4 flex items-center justify-between bg-white dark:bg-[#1a2a3a] hover:bg-gray-50/80 dark:hover:bg-[#1a2a3a]/80 text-left shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                className="w-full px-6 py-4 flex items-center justify-between bg-white dark:bg-[#1a2a3a] hover:bg-gray-50/80 dark:hover:bg-[#1a2a3a]/80 text-left shadow-sm  transition-all duration-300"
                 aria-expanded={openId === index}
               >
                 <h3 className="font-semibold text-[#0d2064] dark:text-white text-sm md:text-base pr-4">
