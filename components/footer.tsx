@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
+  const currentYear = 2025;
 
   const footerSections = [
     {
@@ -101,7 +101,7 @@ export function Footer() {
           className="flex flex-col md:flex-row justify-between items-center"
         >
           {/* Copyright */}
-          <p className="text-blue-100 text-sm mb-4 md:mb-0">
+          <p className="text-blue-100 text-sm mb-4 md:mb-0" suppressHydrationWarning>
             © {currentYear} Invozee. All rights reserved.
           </p>
 

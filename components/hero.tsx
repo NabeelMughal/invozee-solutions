@@ -1,219 +1,326 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
+import gsap from 'gsap';
 
 export function Hero() {
-  // Animation variants for floating elements
-  const floatingVariants = {
-    animate: {
-      y: [0, -40, 0],
-      transition: {
-        duration: 8,
-        repeat: Infinity,
-        ease: 'easeInOut',
-      },
-    },
-  };
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
+  const badgeRef = useRef<HTMLDivElement>(null);
 
-  const floatingVariantsX = {
-    animate: {
-      x: [0, 40, 0],
-      y: [0, -30, 0],
-      transition: {
-        duration: 10,
-        repeat: Infinity,
-        ease: 'easeInOut',
-      },
-    },
-  };
+  // 1. Rebuild Interactive Background Canvas using vanilla high-performance particles
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-  const waveVariants = {
-    animate: {
-      backgroundPosition: ['0% 0%', '100% 0%'],
-      transition: {
-        duration: 20,
-        repeat: Infinity,
-        ease: 'linear',
-      },
-    },
-  };
+    let animationFrameId: number;
+    let particles: Particle[] = [];
+    const mouse = { x: -1000, y: -1000, radius: 150 };
+
+    class Particle {
+      x: number;
+      y: number;
+      baseX: number;
+      baseY: number;
+      vx: number;
+      vy: number;
+      size: number;
+      color: string;
+      density: number;
+
+      constructor(x: number, y: number) {
+        this.x = x;
+        this.y = y;
+        this.baseX = x;
+        this.baseY = y;
+        // Float velocity
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.size = Math.random() * 2 + 1;
+        // Harmony palette (Primary: blue, Secondary: gold/amber)
+        this.color = Math.random() > 0.4 ? 'rgba(13, 32, 100, 0.45)' : 'rgba(249, 171, 18, 0.6)';
+        this.density = (Math.random() * 30) + 15;
+      }
+
+      draw() {
+        if (!ctx) return;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+
+      update() {
+        // Continuous slow float around base
+        this.baseX += this.vx;
+        this.baseY += this.vy;
+
+        // Keep bounds
+        if (this.baseX < 0 || this.baseX > canvas.width) this.vx *= -1;
+        if (this.baseY < 0 || this.baseY > canvas.height) this.vy *= -1;
+
+        // Proximity calculation with cursor
+        const dx = mouse.x - this.x;
+        const dy = mouse.y - this.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const forceDirectionX = dx / distance;
+        const forceDirectionY = dy / distance;
+
+        // Max push distance
+        const maxDistance = mouse.radius;
+        const force = (maxDistance - distance) / maxDistance;
+
+        if (distance < maxDistance) {
+          // Push particles away
+          const directionX = forceDirectionX * force * this.density;
+          const directionY = forceDirectionY * force * this.density;
+          this.x -= directionX;
+          this.y -= directionY;
+        } else {
+          // Soft return to base
+          if (this.x !== this.baseX) {
+            const dxBase = this.x - this.baseX;
+            this.x -= dxBase / 20;
+          }
+          if (this.y !== this.baseY) {
+            const dyBase = this.y - this.baseY;
+            this.y -= dyBase / 20;
+          }
+        }
+      }
+    }
+
+    const init = () => {
+      particles = [];
+      const numberOfParticles = Math.min(Math.floor((canvas.width * canvas.height) / 8000), 150);
+      for (let i = 0; i < numberOfParticles; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        particles.push(new Particle(x, y));
+      }
+    };
+
+    const handleResize = () => {
+      canvas.width = canvas.parentElement?.clientWidth || window.innerWidth;
+      canvas.height = canvas.parentElement?.clientHeight || window.innerHeight;
+      init();
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    };
+
+    const handleMouseLeave = () => {
+      mouse.x = -1000;
+      mouse.y = -1000;
+    };
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseleave', handleMouseLeave);
+
+    handleResize();
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw digital mesh/waves connecting nearby particles
+      for (let a = 0; a < particles.length; a++) {
+        for (let b = a + 1; b < particles.length; b++) {
+          const dx = particles[a].x - particles[b].x;
+          const dy = particles[a].y - particles[b].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 110) {
+            const alpha = (1 - dist / 110) * 0.15;
+            ctx.strokeStyle = `rgba(13, 32, 100, ${alpha})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  // 2. Rebuild Hero Animations using GSAP
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        defaults: { ease: 'power3.out' },
+      });
+
+      tl.fromTo(
+        badgeRef.current,
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 1 }
+      );
+
+      if (headingRef.current) {
+        const originalText = 'Transforming Ideas Into Digital Solutions';
+
+        headingRef.current.innerHTML = `
+        <span class="hero-heading-wrap">
+          ${originalText
+            .split(' ')
+            .map(
+              (word) => `
+                <span class="overflow-hidden inline-flex">
+                  <span class="hero-word inline-block">${word}</span>
+                </span>
+              `
+            )
+            .join('<span class="w-3 inline-block"></span>')}
+        </span>
+      `;
+
+        gsap.set('.hero-word', {
+          y: '100%',
+        });
+
+        tl.to(
+          '.hero-word',
+          {
+            y: '0%',
+            duration: 1,
+            stagger: 0.08,
+          },
+          '-=0.7'
+        );
+      }
+
+      tl.fromTo(
+        subtitleRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 1 },
+        '-=0.5'
+      );
+
+      tl.fromTo(
+        ctaRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 1 },
+        '-=0.7'
+      );
+
+      if (statsRef.current) {
+        tl.fromTo(
+          statsRef.current.children,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.15,
+          },
+          '-=0.6'
+        );
+      }
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 pb-20 px-4 overflow-hidden bg-gradient-to-b from-background via-white to-blue-50/5">
-      {/* Animated Background Container */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Mesh Gradient Background - Premium effect */}
-        {/* <svg className="absolute inset-0 w-full h-full opacity-[0.10]" preserveAspectRatio="none" viewBox="0 0 1000 1000">
-          <defs>
-            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#0d2064" />
-              <stop offset="50%" stopColor="#f9ab12" />
-              <stop offset="100%" stopColor="#0d2064" />
-            </linearGradient>
-            <filter id="blur">
-              <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
-            </filter>
-          </defs>
-          <path d="M 0 200 Q 250 150, 500 200 T 1000 200" stroke="url(#grad1)" strokeWidth="2" fill="none" filter="url(#blur)" />
-          <path d="M 0 400 Q 250 350, 500 400 T 1000 400" stroke="url(#grad1)" strokeWidth="2" fill="none" filter="url(#blur)" opacity="0.6" />
-          <path d="M 0 600 Q 250 550, 500 600 T 1000 600" stroke="url(#grad1)" strokeWidth="1.5" fill="none" filter="url(#blur)" opacity="0.4" />
-          <path d="M 0 800 Q 250 750, 500 800 T 1000 800" stroke="url(#grad1)" strokeWidth="1" fill="none" filter="url(#blur)" opacity="0.2" />
-        </svg> */}
+    <section
+      ref={containerRef}
+      className="relative min-h-screen flex items-center justify-center pt-24 pb-20 px-4 overflow-hidden bg-gradient-to-b from-background via-white to-blue-50/10 dark:from-[#0d1929] dark:via-[#0f223d] dark:to-[#0d1929] transition-colors duration-500"
+    >
+      {/* Interactive Background Canvas */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-75 dark:opacity-40"
+      />
 
-        {/* Animated Gradient Wave - flowing effect */}
-        <motion.div
-          variants={waveVariants}
-          animate="animate"
-          className="absolute inset-0 opacity-[0.50]"
-          style={{
-            background: `linear-gradient(90deg, 
-              transparent 0%, 
-              rgba(249, 171, 18, 0.1) 25%, 
-              rgba(13, 32, 100, 0.1) 50%, 
-              rgba(249, 171, 18, 0.1) 75%, 
-              transparent 100%)`,
-            backgroundSize: '200% 100%',
-          }}
-        ></motion.div>
+      {/* Decorative Orbs with continuous slow motion */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        {/* Amber Glow Orb */}
+        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full blur-3xl opacity-[0.08] bg-gradient-to-br from-[#f9ab12] to-[#0d2064] animate-pulse duration-[8000ms]" />
+        {/* Navy Glow Orb */}
+        <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full blur-3xl opacity-[0.06] bg-gradient-to-tr from-[#0d2064] to-[#f9ab12] animate-pulse duration-[12000ms]" />
 
-        {/* Floating Particles - subtle dots */}
-        {/* {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={`particle-${i}`}
-            className="absolute w-1 h-1 rounded-full"
-            style={{
-              background:
-                i % 2 === 0
-                  ? 'rgba(13, 32, 100)'
-                  : 'rgba(249, 171, 18)',
-              left: `${15 + i * 12}%`,
-              top: `${20 + i * 8}%`,
-            }}
-            animate={{
-              y: [0, -80, 0],
-              opacity: [0.3, 0.8, 0.3],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 6 + i * 0.5,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: i * 0.2,
-            }}
-          />
-        ))} */}
-
-        {/* Large Floating Blur Orbs with subtle animation */}
-        <motion.div
-          variants={floatingVariants}
-          animate="animate"
-          className="absolute -top-20 -right-20 w-96 h-96 rounded-full blur-3xl opacity-[0.07]"
-          style={{
-            background: 'linear-gradient(135deg, rgba(249, 171, 18, 0.3), rgba(13, 32, 100, 0.2))',
-          }}
-        ></motion.div>
-
-        <motion.div
-          variants={floatingVariantsX}
-          animate="animate"
-          className="absolute -bottom-20 -left-20 w-96 h-96 rounded-full blur-3xl opacity-[0.06]"
-          style={{
-            background: 'linear-gradient(135deg, rgba(13, 32, 100, 0.3), rgba(249, 171, 18, 0.1))',
-          }}
-        ></motion.div>
-
-        {/* Subtle Center Glow */}
-        <motion.div
-          animate={{
-            opacity: [0.05, 0.12, 0.05],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full blur-3xl opacity-[0.08]"
-          style={{
-            background: 'radial-gradient(circle, rgba(249, 171, 18, 0.2), transparent)',
-          }}
-        ></motion.div>
-
-        {/* Animated flowing lines - diagonal */}
-        <motion.div
-          animate={{
-            x: [0, 100, 0],
-            opacity: [0.05, 0.12, 0.05],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            background: `linear-gradient(45deg, 
-              transparent 0%, 
-              rgba(13, 32, 100, 0.1) 25%, 
-              transparent 50%)`,
-            backgroundSize: '200px 200px',
-          }}
-        ></motion.div>
-
-        {/* Tech Grid Pattern - extremely subtle */}
+        {/* Tech Grid Pattern overlay */}
         <div
-          className="absolute inset-0 opacity-[0.015]"
+          className="absolute inset-0 opacity-[0.02] dark:opacity-[0.03]"
           style={{
-            backgroundImage: `linear-gradient(0deg, transparent 24%, rgba(13, 32, 100, 0.1) 25%, rgba(13, 32, 100, 0.1) 26%, transparent 27%, transparent 74%, rgba(13, 32, 100, 0.1) 75%, rgba(13, 32, 100, 0.1) 76%, transparent 77%, transparent),
-              linear-gradient(90deg, transparent 24%, rgba(13, 32, 100, 0.1) 25%, rgba(13, 32, 100, 0.1) 26%, transparent 27%, transparent 74%, rgba(13, 32, 100, 0.1) 75%, rgba(13, 32, 100, 0.1) 76%, transparent 77%, transparent)`,
-            backgroundSize: '60px 60px',
+            backgroundImage: `linear-gradient(0deg, transparent 24%, rgba(13, 32, 100, 0.15) 25%, rgba(13, 32, 100, 0.15) 26%, transparent 27%, transparent 74%, rgba(13, 32, 100, 0.15) 75%, rgba(13, 32, 100, 0.15) 76%, transparent 77%, transparent),
+              linear-gradient(90deg, transparent 24%, rgba(13, 32, 100, 0.15) 25%, rgba(13, 32, 100, 0.15) 26%, transparent 27%, transparent 74%, rgba(13, 32, 100, 0.15) 75%, rgba(13, 32, 100, 0.15) 76%, transparent 77%, transparent)`,
+            backgroundSize: '80px 80px',
           }}
-        ></div>
+        />
       </div>
 
-      <div className="max-w-5xl mx-auto relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center"
+      <div
+        className="max-w-5xl mx-auto relative z-10 text-center">
+        <div ref={badgeRef} className="mb-6 inline-block">
+          <span className="text-xs md:text-sm font-semibold text-[#f9ab12] uppercase tracking-widest bg-[#f9ab12]/10 dark:bg-[#f9ab12]/20 px-4 py-1.5 rounded-full border border-[#f9ab12]/30">
+            Welcome to Innovation
+          </span>
+        </div>
+
+        <h1
+          ref={headingRef}
+          className="text-4xl md:text-7xl font-extrabold text-balance mb-6 text-primary dark:text-white leading-[1.15]"
         >
-          <div className="mb-6 inline-block">
-            <span className="text-sm font-semibold text-accent uppercase tracking-wider">
-              Welcome to Innovation
-            </span>
-          </div>
+          Transforming Ideas Into Digital Solutions
+        </h1>
 
-          <h1 className="text-5xl md:text-7xl font-bold text-balance mb-6 text-primary">
-            Transforming Ideas Into Digital Solutions
-          </h1>
+        <p
+          ref={subtitleRef}
+          className="text-base md:text-xl text-gray-600 dark:text-gray-300 text-balance mb-10 max-w-2xl mx-auto leading-relaxed"
+        >
+          Premium IT solutions and enterprise-level software development services. We transform your vision into robust, scalable digital products.
+        </p>
 
-          <p className="text-lg md:text-xl text-gray-600 text-balance mb-8 max-w-2xl mx-auto leading-relaxed">
-            Premium IT solutions and enterprise-level software development services. We transform your vision into robust, scalable digital products.
-          </p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+        <div
+          ref={ctaRef}
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20"
+        >
+          <a
+            href="#contact"
+            className="px-8 py-4 bg-[#0d2064] text-white dark:bg-[#f9ab12] dark:text-[#0d2064] rounded-full font-bold hover:shadow-lg hover:shadow-[#0d2064]/20 dark:hover:shadow-[#f9ab12]/20 transition-all duration-300 flex items-center gap-2 group transform hover:-translate-y-0.5"
           >
-            <button className="px-8 py-4 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition-colors flex items-center gap-2 group">
-              Get Started
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button className="px-8 py-4 border-2 border-primary text-primary rounded-full font-semibold hover:bg-primary/10 transition-colors">
-              View Portfolio
-            </button>
-          </motion.div>
-        </motion.div>
+            Get Started
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+          </a>
+          <a
+            href="#portfolio"
+            className="px-8 py-4 border-2 border-[#0d2064] text-[#0d2064] dark:border-white/20 dark:text-white rounded-full font-bold hover:bg-[#0d2064]/5 dark:hover:bg-white/5 transition-all duration-300 transform hover:-translate-y-0.5"
+          >
+            View Portfolio
+          </a>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8"
+        <div
+          ref={statsRef}
+          className="grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-gray-200/50 dark:border-white/10 pt-12"
         >
           {[
             { number: '100+', label: 'Projects Delivered' },
@@ -221,20 +328,19 @@ export function Hero() {
             { number: '10+', label: 'Technologies' },
             { number: '5+', label: 'Years Experience' },
           ].map((stat, index) => (
-            <motion.div
+            <div
               key={index}
-              whileHover={{ y: -5 }}
-              className="text-center"
+              className="text-center group"
             >
-              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">
+              <div className="text-3xl md:text-5xl font-extrabold text-[#0d2064] dark:text-white mb-2 transition-transform duration-300 group-hover:scale-105">
                 {stat.number}
               </div>
-              <p className="text-sm md:text-base text-gray-600">
+              <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 font-medium tracking-wide uppercase">
                 {stat.label}
               </p>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

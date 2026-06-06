@@ -17,10 +17,10 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Technologies />
-      <Services />
-      <About />
+      <Services featuredOnly={true} />
+      <About featuredOnly={true} />
       <Process />
-      <Portfolio />
+      <Portfolio featuredOnly={true} />
       <Statistics />
       <Testimonials />
       <FAQ />
