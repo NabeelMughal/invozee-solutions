@@ -32,7 +32,7 @@ export function Hero() {
       vx: number;
       vy: number;
       size: number;
-      color: string;
+      isPrimary: boolean;
       density: number;
 
       constructor(x: number, y: number) {
@@ -45,7 +45,7 @@ export function Hero() {
         this.vy = (Math.random() - 0.5) * 0.5;
         this.size = Math.random() * 2 + 1;
         // Harmony palette (Primary: blue, Secondary: gold/amber)
-        this.color = Math.random() > 0.4 ? 'rgba(13, 32, 100, 0.45)' : 'rgba(249, 171, 18, 0.6)';
+        this.isPrimary = Math.random() > 0.4;
         this.density = (Math.random() * 30) + 15;
       }
 
@@ -53,7 +53,12 @@ export function Hero() {
         if (!ctx) return;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
+        const isDark = document.documentElement.classList.contains('dark');
+        if (this.isPrimary) {
+          ctx.fillStyle = 'rgba(13, 32, 100, 0.45)';
+        } else {
+          ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.75)' : 'rgba(249, 171, 18, 0.6)';
+        }
         ctx.fill();
       }
 
@@ -142,7 +147,8 @@ export function Hero() {
 
           if (dist < 110) {
             const alpha = (1 - dist / 110) * 0.15;
-            ctx.strokeStyle = `rgba(13, 32, 100, ${alpha})`;
+            const isDark = document.documentElement.classList.contains('dark');
+            ctx.strokeStyle = isDark ? `rgba(255, 255, 255, ${alpha})` : `rgba(13, 32, 100, ${alpha})`;
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(particles[a].x, particles[a].y);
