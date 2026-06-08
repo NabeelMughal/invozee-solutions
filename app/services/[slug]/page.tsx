@@ -3,14 +3,15 @@ import { Footer } from '@/components/footer';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle, Code2, Zap } from 'lucide-react';
+import { ArrowRight, CheckCircle } from 'lucide-react';
+import { ScrollAnimate, ScrollAnimateStagger } from '@/components/scroll-animate';
 
 const servicesData = {
   'web-development': {
     title: 'Web Development Services',
     subtitle: 'Custom Websites, E-Commerce, and Web Applications',
     description: 'Build powerful, scalable web solutions tailored to your business needs.',
-    hero: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=600&fit=crop',
+    hero: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&h=600&fit=crop',
     benefits: [
       { title: 'Responsive Design', description: 'Works flawlessly across all devices and screen sizes' },
       { title: 'High Performance', description: 'Optimized for speed, SEO, and user engagement' },
@@ -36,7 +37,7 @@ const servicesData = {
     title: 'Mobile App Development',
     subtitle: 'iOS, Android, and Cross-Platform Solutions',
     description: 'Create engaging mobile experiences that drive user engagement and loyalty.',
-    hero: 'https://images.unsplash.com/photo-1512941691920-25e94c68af70?w=1200&h=600&fit=crop',
+    hero: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1200&h=600&fit=crop',
     benefits: [
       { title: 'Native Performance', description: 'Optimized for each platform' },
       { title: 'Cross-Platform Reach', description: 'Deploy to iOS and Android simultaneously' },
@@ -114,7 +115,7 @@ const servicesData = {
     title: 'Cloud & DevOps Services',
     subtitle: 'Infrastructure, Migration, and Automation',
     description: 'Build robust, scalable cloud infrastructure for your applications.',
-    hero: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&h=600&fit=crop',
+    hero: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&h=600&fit=crop',
     benefits: [
       { title: 'High Availability', description: 'Reliable systems with minimal downtime' },
       { title: 'Cost Optimization', description: 'Efficient resource utilization' },
@@ -140,7 +141,7 @@ const servicesData = {
     title: 'AI & Automation Services',
     subtitle: 'ChatBots, Machine Learning, and Process Automation',
     description: 'Leverage AI to automate processes and create intelligent solutions.',
-    hero: 'https://images.unsplash.com/photo-1677442d019cecf8571637a7eea93b5cff435cb13?w=1200&h=600&fit=crop',
+    hero: 'https://images.unsplash.com/photo-1677442136019-21780efad99a?w=1200&h=600&fit=crop',
     benefits: [
       { title: 'Efficiency', description: 'Reduce manual tasks and operational costs' },
       { title: 'Scalability', description: 'Automate without increasing headcount' },
@@ -198,108 +199,187 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative pt-24 pb-16 bg-gradient-to-b from-slate-50 dark:from-slate-900/50 to-background overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-500 rounded-full blur-3xl"></div>
+      <section className="relative pt-32 pb-24 px-4 overflow-hidden bg-gradient-to-b from-white to-blue-50/20 dark:from-[#0d1929] dark:to-[#0f223d]/30 transition-colors duration-500">
+        {/* Decorative Orbs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+          <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full blur-3xl opacity-[0.08] bg-gradient-to-br from-[#f9ab12] to-[#0d2064] animate-pulse duration-[8000ms]" />
+          <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full blur-3xl opacity-[0.06] bg-gradient-to-tr from-[#0d2064] to-[#f9ab12] animate-pulse duration-[12000ms]" />
         </div>
         <div className="max-w-7xl mx-auto px-4 relative z-10">
-          <div className="flex flex-col lg:flex-row gap-8 items-center">
+          <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1">
-              <h1 className="text-4xl lg:text-5xl font-bold mb-4 text-balance">{service.title}</h1>
-              <p className="text-xl text-gray-600 dark:text-gray-400 mb-6">{service.subtitle}</p>
-              <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 max-w-2xl">{service.description}</p>
+              <span className="text-xs font-semibold text-[#f9ab12] uppercase tracking-widest bg-[#f9ab12]/10 px-4 py-1.5 rounded-full border border-[#f9ab12]/20">
+                Services
+              </span>
+              <h1 className="text-4xl lg:text-6xl font-extrabold text-[#0d2064] dark:text-white mt-4 mb-4 leading-tight">
+                {service.title}
+              </h1>
+              <p className="text-lg md:text-xl text-[#f9ab12] font-semibold mb-6">{service.subtitle}</p>
+              <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 mb-8 leading-relaxed max-w-2xl">
+                {service.description}
+              </p>
               <Link href="/contact">
-                <button className="px-8 py-3 bg-[#0d2064] text-white dark:bg-[#f9ab12] dark:text-[#0d2064] rounded-full font-bold hover:shadow-lg transition-all">
-                  Get Started <ArrowRight className="inline ml-2 w-5 h-5" />
+                <button className="px-8 py-4 bg-[#0d2064] text-white dark:bg-[#f9ab12] dark:text-[#0d2064] rounded-full font-bold hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 flex items-center gap-2 cursor-pointer">
+                  Get Started <ArrowRight className="w-5 h-5" />
                 </button>
               </Link>
             </div>
             <div className="flex-1">
-              <img src={service.hero} alt={service.title} className="rounded-lg shadow-2xl" />
+              <div className="relative group rounded-3xl overflow-hidden shadow-2xl border border-gray-100 dark:border-gray-800">
+                <img
+                  src={service.hero}
+                  alt={service.title}
+                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 px-4">
+      <section className="py-24 px-4 bg-white dark:bg-[#0d1929]">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Why Choose Our {service.title}?</h2>
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="text-center mb-16">
+            <span className="text-xs font-semibold text-[#f9ab12] uppercase tracking-widest bg-[#f9ab12]/10 px-4 py-1.5 rounded-full border border-[#f9ab12]/20">
+              Benefits
+            </span>
+            <h2 className="text-3xl md:text-5xl font-bold text-[#0d2064] dark:text-white mt-4 mb-4">
+              Why Choose Our {service.title.split(' ')[0]}
+            </h2>
+            <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+              We deliver enterprise-grade performance and results customized for your business needs.
+            </p>
+          </div>
+          <ScrollAnimateStagger className="grid md:grid-cols-2 gap-8">
             {service.benefits.map((benefit, idx) => (
-              <div key={idx} className="flex gap-4">
-                <CheckCircle className="w-6 h-6 text-[#f9ab12] flex-shrink-0 mt-1" />
+              <div
+                key={idx}
+                className="flex gap-4 p-8 bg-gradient-to-br from-white to-blue-50/20 dark:from-[#1a2a3a] dark:to-[#1a2a3a]/80 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] shadow-sm hover:shadow-xl transition-all duration-300"
+              >
+                <div className="w-12 h-12 rounded-xl bg-[#f9ab12]/10 flex items-center justify-center flex-shrink-0 text-[#f9ab12]">
+                  <CheckCircle className="w-6 h-6" />
+                </div>
                 <div>
-                  <h3 className="font-bold text-lg mb-2">{benefit.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-400">{benefit.description}</p>
+                  <h3 className="font-bold text-lg text-[#0d2064] dark:text-white mb-2">{benefit.title}</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{benefit.description}</p>
                 </div>
               </div>
             ))}
-          </div>
+          </ScrollAnimateStagger>
         </div>
       </section>
 
       {/* Subcategories Section */}
-      <section className="py-20 px-4 bg-slate-50 dark:bg-slate-900/30">
+      <section className="py-24 px-4 bg-gradient-to-b from-blue-50/20 to-white dark:from-[#0f223d]/30 dark:to-[#0d1929]">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Our {service.title.split(' ')[0]} Solutions</h2>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="text-center mb-16">
+            <span className="text-xs font-semibold text-[#f9ab12] uppercase tracking-widest bg-[#f9ab12]/10 px-4 py-1.5 rounded-full border border-[#f9ab12]/20">
+              Solutions
+            </span>
+            <h2 className="text-3xl md:text-5xl font-bold text-[#0d2064] dark:text-white mt-4 mb-4">
+              Our {service.title.split(' ')[0]} Solutions
+            </h2>
+            <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+              Tailored software solutions engineered for maximum impact and seamless integration.
+            </p>
+          </div>
+          <ScrollAnimateStagger className="grid md:grid-cols-2 gap-6">
             {service.subcategories.map((sub, idx) => (
-              <div key={idx} className="p-6 rounded-lg bg-white dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 hover:shadow-lg transition-shadow">
-                <h3 className="font-bold text-lg mb-2">{sub.name}</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">{sub.description}</p>
-                <Link href="/contact" className="text-[#f9ab12] font-semibold hover:underline inline-flex items-center gap-2">
-                  Learn More <ArrowRight className="w-4 h-4" />
+              <div
+                key={idx}
+                className="p-8 bg-white dark:bg-[#1a2a3a] rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              >
+                <h3 className="font-bold text-xl text-[#0d2064] dark:text-white mb-3">{sub.name}</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 leading-relaxed">{sub.description}</p>
+                <Link
+                  href="/contact"
+                  className="text-[#f9ab12] font-semibold hover:underline inline-flex items-center gap-2 group"
+                >
+                  Learn More <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
             ))}
-          </div>
+          </ScrollAnimateStagger>
         </div>
       </section>
 
       {/* Technologies Section */}
-      <section className="py-20 px-4">
+      <section className="py-24 px-4 bg-white dark:bg-[#0d1929]">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Technologies We Use</h2>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="text-center mb-16">
+            <span className="text-xs font-semibold text-[#f9ab12] uppercase tracking-widest bg-[#f9ab12]/10 px-4 py-1.5 rounded-full border border-[#f9ab12]/20">
+              Our Stack
+            </span>
+            <h2 className="text-3xl md:text-5xl font-bold text-[#0d2064] dark:text-white mt-4 mb-4">
+              Technologies We Use
+            </h2>
+            <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+              We leverage cutting-edge technologies to build scalable, secure, and modern digital solutions.
+            </p>
+          </div>
+          <ScrollAnimate className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
             {service.technologies.map((tech, idx) => (
-              <span key={idx} className="px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-900 dark:text-blue-300 rounded-full font-semibold">
+              <span
+                key={idx}
+                className="px-5 py-2.5 bg-blue-50/80 dark:bg-[#1a2a3a] text-[#0d2064] dark:text-gray-300 text-sm font-semibold rounded-full border border-blue-100 dark:border-gray-800 hover:bg-[#f9ab12]/10 hover:border-[#f9ab12]/30 transition-colors duration-200"
+              >
                 {tech}
               </span>
             ))}
-          </div>
+          </ScrollAnimate>
         </div>
       </section>
 
       {/* Process Section */}
-      <section className="py-20 px-4 bg-slate-50 dark:bg-slate-900/30">
+      <section className="py-24 px-4 bg-gradient-to-b from-white to-blue-50/20 dark:from-[#0d1929] dark:to-[#0f223d]/30">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Our Development Process</h2>
-          <div className="grid md:grid-cols-5 gap-4">
+          <div className="text-center mb-16">
+            <span className="text-xs font-semibold text-[#f9ab12] uppercase tracking-widest bg-[#f9ab12]/10 px-4 py-1.5 rounded-full border border-[#f9ab12]/20">
+              How We Work
+            </span>
+            <h2 className="text-3xl md:text-5xl font-bold text-[#0d2064] dark:text-white mt-4 mb-4">
+              Our Development Process
+            </h2>
+            <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+              A structured approach to delivering exceptional results on time and on budget.
+            </p>
+          </div>
+          <ScrollAnimateStagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             {service.process.map((item, idx) => (
-              <div key={idx} className="text-center">
-                <div className="w-12 h-12 rounded-full bg-[#f9ab12] text-[#0d2064] font-bold flex items-center justify-center mx-auto mb-4 text-lg">
+              <div
+                key={idx}
+                className="h-full p-6 bg-white dark:bg-[#1a2a3a] rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-center"
+              >
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#f9ab12] to-orange-500 flex items-center justify-center mx-auto mb-5 text-white font-extrabold text-lg shadow-md">
                   {idx + 1}
                 </div>
-                <h3 className="font-bold mb-2">{item.step}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{item.description}</p>
+                <h3 className="text-base font-bold text-[#0d2064] dark:text-white mb-2">{item.step}</h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{item.description}</p>
               </div>
             ))}
-          </div>
+          </ScrollAnimateStagger>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center bg-gradient-to-r from-blue-600 to-blue-900 dark:from-blue-900 dark:to-blue-700 rounded-2xl p-12 text-white">
-          <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Business?</h2>
-          <p className="text-lg mb-8 opacity-90">Let&apos;s discuss how our {service.title.toLowerCase()} can help you achieve your goals.</p>
-          <Link href="/contact">
-            <button className="px-8 py-3 bg-white text-blue-600 font-bold rounded-full hover:bg-gray-100 transition-all">
-              Schedule a Consultation
-            </button>
-          </Link>
+      <section className="py-24 px-4 bg-white dark:bg-[#0d1929]">
+        <div className="max-w-5xl mx-auto">
+          <ScrollAnimate className="text-center bg-gradient-to-br from-[#0d2064] to-[#0a1435] dark:from-[#1a2a3a] dark:to-[#0f223d]/40 rounded-3xl p-12 md:p-16 text-white border border-white/5 shadow-2xl relative overflow-hidden">
+            <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#f9ab12]/10 rounded-full blur-3xl pointer-events-none" />
+            <h2 className="text-3xl md:text-5xl font-extrabold mb-4 relative z-10">
+              Ready to Transform Your Business?
+            </h2>
+            <p className="text-base md:text-lg mb-8 opacity-90 max-w-2xl mx-auto relative z-10">
+              Let&apos;s discuss how our {service.title.toLowerCase()} can help you achieve your goals.
+            </p>
+            <Link href="/contact" className="relative z-10 inline-block">
+              <button className="px-8 py-4 bg-[#f9ab12] text-[#0d2064] font-bold rounded-full hover:shadow-xl hover:bg-white transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer">
+                Schedule a Consultation
+              </button>
+            </Link>
+          </ScrollAnimate>
         </div>
       </section>
 
