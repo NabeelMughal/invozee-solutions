@@ -55,9 +55,9 @@ export function Hero() {
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         const isDark = document.documentElement.classList.contains('dark');
         if (this.isPrimary) {
-          ctx.fillStyle = 'rgba(13, 32, 100, 0.45)';
+          ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.75)' : 'rgba(13, 32, 100, 0.45)';
         } else {
-          ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.75)' : 'rgba(249, 171, 18, 0.6)';
+          ctx.fillStyle = 'rgba(249, 171, 18, 0.6)';
         }
         ctx.fill();
       }
