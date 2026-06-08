@@ -46,7 +46,7 @@ export function Statistics() {
   ];
 
   return (
-    <section className="py-24 px-4 bg-gradient-to-r from-[#0d2064] to-blue-800 text-white">
+    <section className="py-24 px-4 bg-gradient-to-br from-[#0d2064] to-[#061033] dark:from-[#1a2a3a] dark:to-[#0f223d]/40 text-white border-y border-white/5 dark:border-gray-800/60">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Impact</h2>
