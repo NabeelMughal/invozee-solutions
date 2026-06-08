@@ -256,13 +256,13 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             {service.benefits.map((benefit, idx) => (
               <div
                 key={idx}
-                className="flex gap-4 p-8 bg-gradient-to-br from-white to-blue-50/20 dark:from-[#1a2a3a] dark:to-[#1a2a3a]/80 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] shadow-sm hover:shadow-xl transition-all duration-300"
+                className="group flex gap-4 p-8 bg-gradient-to-br from-white to-blue-50/20 dark:from-[#1a2a3a] dark:to-[#1a2a3a]/80 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
-                <div className="w-12 h-12 rounded-xl bg-[#f9ab12]/10 flex items-center justify-center flex-shrink-0 text-[#f9ab12]">
+                <div className="w-12 h-12 rounded-xl bg-[#f9ab12]/10 flex items-center justify-center flex-shrink-0 text-[#f9ab12] group-hover:scale-110 transition-transform duration-300">
                   <CheckCircle className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg text-[#0d2064] dark:text-white mb-2">{benefit.title}</h3>
+                  <h3 className="font-bold text-lg text-[#0d2064] dark:text-white mb-2 group-hover:text-[#f9ab12] transition-colors duration-200">{benefit.title}</h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{benefit.description}</p>
                 </div>
               </div>
@@ -289,9 +289,9 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             {service.subcategories.map((sub, idx) => (
               <div
                 key={idx}
-                className="p-8 bg-white dark:bg-[#1a2a3a] rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                className="group p-8 bg-white dark:bg-[#1a2a3a] rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
-                <h3 className="font-bold text-xl text-[#0d2064] dark:text-white mb-3">{sub.name}</h3>
+                <h3 className="font-bold text-xl text-[#0d2064] dark:text-white mb-3 group-hover:text-[#f9ab12] transition-colors duration-200">{sub.name}</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 leading-relaxed">{sub.description}</p>
                 <Link
                   href="/contact"
@@ -323,7 +323,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             {service.technologies.map((tech, idx) => (
               <span
                 key={idx}
-                className="px-5 py-2.5 bg-blue-50/80 dark:bg-[#1a2a3a] text-[#0d2064] dark:text-gray-300 text-sm font-semibold rounded-full border border-blue-100 dark:border-gray-800 hover:bg-[#f9ab12]/10 hover:border-[#f9ab12]/30 transition-colors duration-200"
+                className="px-5 py-2.5 bg-blue-50/80 dark:bg-[#1a2a3a] text-[#0d2064] dark:text-gray-300 text-sm font-semibold rounded-full border border-blue-100 dark:border-gray-800 hover:bg-[#f9ab12]/20 hover:border-[#f9ab12] hover:text-[#0d2064] dark:hover:text-white transition-all duration-200 cursor-default"
               >
                 {tech}
               </span>
@@ -350,12 +350,12 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             {service.process.map((item, idx) => (
               <div
                 key={idx}
-                className="h-full p-6 bg-white dark:bg-[#1a2a3a] rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-center"
+                className="group h-full p-6 bg-white dark:bg-[#1a2a3a] rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-center"
               >
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#f9ab12] to-orange-500 flex items-center justify-center mx-auto mb-5 text-white font-extrabold text-lg shadow-md">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#f9ab12] to-orange-500 flex items-center justify-center mx-auto mb-5 text-white font-extrabold text-lg shadow-md group-hover:scale-110 transition-transform duration-300">
                   {idx + 1}
                 </div>
-                <h3 className="text-base font-bold text-[#0d2064] dark:text-white mb-2">{item.step}</h3>
+                <h3 className="text-base font-bold text-[#0d2064] dark:text-white mb-2 group-hover:text-[#f9ab12] transition-colors duration-200">{item.step}</h3>
                 <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{item.description}</p>
               </div>
             ))}
@@ -375,7 +375,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               Let&apos;s discuss how our {service.title.toLowerCase()} can help you achieve your goals.
             </p>
             <Link href="/contact" className="relative z-10 inline-block">
-              <button className="px-8 py-4 bg-[#f9ab12] text-[#0d2064] font-bold rounded-full hover:shadow-xl hover:bg-white transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer">
+              <button className="px-8 py-4 bg-[#f9ab12] text-[#0d2064] font-bold rounded-full hover:shadow-xl hover:bg-white hover:text-[#0d2064] transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer">
                 Schedule a Consultation
               </button>
             </Link>
