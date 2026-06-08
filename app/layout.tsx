@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { SmoothScroll } from '@/components/smooth-scroll'
+import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
 const _geist = Geist({ subsets: ['latin'] });
@@ -29,12 +30,14 @@ export default function RootLayout({
   return (
     // suppressHydrationWarning prevents browser-extension-injected attributes
     // (e.g. data-new-gr-c-s-check-loaded from Grammarly) from causing mismatch errors
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="bg-background" suppressHydrationWarning>
       <body className="font-sans antialiased bg-background text-foreground" suppressHydrationWarning>
-        <SmoothScroll>
-          {children}
-        </SmoothScroll>
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <SmoothScroll>
+            {children}
+          </SmoothScroll>
+          {process.env.NODE_ENV === 'production' && <Analytics />}
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -1,21 +1,98 @@
 'use client';
 
-import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Menu, X, Moon, Sun } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useTheme } from 'next-themes';
+import { MegaMenu } from './mega-menu';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navItems = [
     { label: 'Home', href: '/' },
-    { label: 'Services', href: '/services' },
     { label: 'Portfolio', href: '/portfolio' },
     { label: 'About Us', href: '/about' },
     { label: 'Contact Us', href: '/contact' },
+  ];
+
+  const servicesSections = [
+    {
+      title: 'Web Development',
+      items: [
+        { label: 'Custom Website Development', href: '/services/web-development' },
+        { label: 'Corporate Websites', href: '/services/web-development' },
+        { label: 'E-commerce Solutions', href: '/services/web-development' },
+        { label: 'Web Applications', href: '/services/web-development' },
+      ],
+    },
+    {
+      title: 'Mobile App Development',
+      items: [
+        { label: 'Android Development', href: '/services/mobile-app-development' },
+        { label: 'iOS Development', href: '/services/mobile-app-development' },
+        { label: 'Cross-Platform Apps', href: '/services/mobile-app-development' },
+        { label: 'App Modernization', href: '/services/mobile-app-development' },
+      ],
+    },
+    {
+      title: 'UI/UX Design',
+      items: [
+        { label: 'UI Design', href: '/services/ui-ux-design' },
+        { label: 'UX Research', href: '/services/ui-ux-design' },
+        { label: 'Wireframing', href: '/services/ui-ux-design' },
+        { label: 'Prototyping', href: '/services/ui-ux-design' },
+      ],
+    },
+    {
+      title: 'Digital Marketing',
+      items: [
+        { label: 'SEO Optimization', href: '/services/digital-marketing' },
+        { label: 'Social Media Marketing', href: '/services/digital-marketing' },
+        { label: 'PPC Advertising', href: '/services/digital-marketing' },
+        { label: 'Content Marketing', href: '/services/digital-marketing' },
+      ],
+    },
+    {
+      title: 'Cloud & DevOps',
+      items: [
+        { label: 'Cloud Migration', href: '/services/cloud-devops' },
+        { label: 'Infrastructure Management', href: '/services/cloud-devops' },
+        { label: 'CI/CD Solutions', href: '/services/cloud-devops' },
+        { label: 'Security Management', href: '/services/cloud-devops' },
+      ],
+    },
+    {
+      title: 'AI & Automation',
+      items: [
+        { label: 'AI Chatbots', href: '/services/ai-automation' },
+        { label: 'Business Automation', href: '/services/ai-automation' },
+        { label: 'AI Integrations', href: '/services/ai-automation' },
+        { label: 'Machine Learning Solutions', href: '/services/ai-automation' },
+      ],
+    },
+  ];
+
+  const industriesItems = [
+    { label: 'Healthcare', href: '/industries/healthcare' },
+    { label: 'Finance & Banking', href: '/industries/finance-banking' },
+    { label: 'Education', href: '/industries/education' },
+    { label: 'E-commerce', href: '/industries/ecommerce' },
+    { label: 'Real Estate', href: '/industries/real-estate' },
+    { label: 'Manufacturing', href: '/industries/manufacturing' },
+    { label: 'Logistics', href: '/industries/logistics' },
+    { label: 'Travel & Hospitality', href: '/industries/travel-hospitality' },
+    { label: 'Retail', href: '/industries/retail' },
+    { label: 'Technology & SaaS', href: '/industries/technology-saas' },
   ];
 
   return (
@@ -61,6 +138,17 @@ export function Navbar() {
                 </Link>
               );
             })}
+            <MegaMenu trigger="Services" sections={servicesSections} />
+            <MegaMenu trigger="Industries" sections={industriesItems} />
+            {mounted && (
+              <button
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                className="p-2 text-gray-700 dark:text-gray-300 hover:text-[#f9ab12] dark:hover:text-[#f9ab12] transition-colors"
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </button>
+            )}
             <Link href="/contact">
               <button className="px-6 py-2.5 bg-[#0d2064] text-white dark:bg-[#f9ab12] dark:text-[#0d2064] rounded-full font-bold text-sm hover:shadow-md hover:shadow-[#0d2064]/20 dark:hover:shadow-[#f9ab12]/20 hover:-translate-y-0.5 transition-all duration-300">
                 Get a Quote
@@ -107,6 +195,27 @@ export function Navbar() {
                 </Link>
               );
             })}
+            <MegaMenu trigger="Services" sections={servicesSections} isMobile={true} />
+            <MegaMenu trigger="Industries" sections={industriesItems} isMobile={true} />
+            {mounted && (
+              <button
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                className="flex items-center justify-center gap-2 w-full px-6 py-2.5 text-gray-700 dark:text-gray-300 hover:text-[#f9ab12] dark:hover:text-[#f9ab12] transition-colors border border-gray-200 dark:border-gray-800 rounded-lg"
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? (
+                  <>
+                    <Sun className="w-4 h-4" />
+                    <span>Light Mode</span>
+                  </>
+                ) : (
+                  <>
+                    <Moon className="w-4 h-4" />
+                    <span>Dark Mode</span>
+                  </>
+                )}
+              </button>
+            )}
             <Link href="/contact" onClick={() => setIsOpen(false)}>
               <button className="w-full px-6 py-3 bg-[#0d2064] text-white dark:bg-[#f9ab12] dark:text-[#0d2064] rounded-full font-bold text-sm">
                 Get a Quote
