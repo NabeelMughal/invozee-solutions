@@ -339,9 +339,9 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
             {industry.metrics.map((metric, idx) => (
               <div
                 key={idx}
-                className="text-center p-6 bg-white dark:bg-[#1a2a3a] border border-gray-100 dark:border-gray-800/80 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300"
+                className="group text-center p-6 bg-white dark:bg-[#1a2a3a] border border-gray-100 dark:border-gray-800/80 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
-                <div className="text-4xl font-extrabold text-[#f9ab12] mb-2">{metric.value}</div>
+                <div className="text-4xl font-extrabold text-[#f9ab12] mb-2 group-hover:scale-105 transition-transform duration-300">{metric.value}</div>
                 <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
                   {metric.label}
                 </p>
@@ -369,12 +369,12 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
             {industry.challenges.map((challenge, idx) => (
               <div
                 key={idx}
-                className="flex gap-4 p-8 bg-gradient-to-br from-white to-blue-50/20 dark:from-[#1a2a3a] dark:to-[#1a2a3a]/80 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
+                className="group flex gap-4 p-8 bg-gradient-to-br from-white to-blue-50/20 dark:from-[#1a2a3a] dark:to-[#1a2a3a]/80 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
               >
-                <div className="w-10 h-10 rounded-xl bg-[#f9ab12]/10 flex items-center justify-center flex-shrink-0 text-[#f9ab12]">
+                <div className="w-10 h-10 rounded-xl bg-[#f9ab12]/10 flex items-center justify-center flex-shrink-0 text-[#f9ab12] group-hover:scale-110 transition-transform duration-300">
                   <Target className="w-5 h-5" />
                 </div>
-                <p className="text-base font-semibold text-[#0d2064] dark:text-gray-300 leading-relaxed">
+                <p className="text-base font-semibold text-[#0d2064] dark:text-gray-300 leading-relaxed group-hover:text-[#f9ab12] transition-colors duration-200">
                   {challenge}
                 </p>
               </div>
@@ -401,14 +401,14 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
             {industry.solutions.map((solution, idx) => (
               <div
                 key={idx}
-                className="p-8 rounded-2xl bg-white dark:bg-[#1a2a3a] border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                className="group p-8 rounded-2xl bg-white dark:bg-[#1a2a3a] border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-[#f9ab12]/10 flex items-center justify-center flex-shrink-0 text-[#f9ab12]">
+                  <div className="w-12 h-12 rounded-xl bg-[#f9ab12]/10 flex items-center justify-center flex-shrink-0 text-[#f9ab12] group-hover:scale-110 transition-transform duration-300">
                     <Zap className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg text-[#0d2064] dark:text-white mb-2">{solution.title}</h3>
+                    <h3 className="font-bold text-lg text-[#0d2064] dark:text-white mb-2 group-hover:text-[#f9ab12] transition-colors duration-200">{solution.title}</h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{solution.description}</p>
                   </div>
                 </div>
@@ -433,7 +433,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
                 Discover how we partnered to design, build, and deploy high-performance tech to drive real impact.
               </p>
               <Link href="/portfolio">
-                <button className="px-8 py-4 bg-[#f9ab12] text-[#0d2064] font-bold rounded-full hover:shadow-xl hover:bg-white transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer">
+                <button className="px-8 py-4 bg-[#f9ab12] text-[#0d2064] font-bold rounded-full hover:shadow-xl hover:bg-white hover:text-[#0d2064] transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer">
                   View Case Studies
                 </button>
               </Link>
