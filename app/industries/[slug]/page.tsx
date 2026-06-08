@@ -4,13 +4,14 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowRight, TrendingUp, Target, Zap } from 'lucide-react';
+import { ScrollAnimate, ScrollAnimateStagger } from '@/components/scroll-animate';
 
 const industriesData = {
   'healthcare': {
     title: 'Healthcare Software Solutions',
     subtitle: 'Transforming Patient Care with Technology',
     description: 'Advanced software solutions designed for modern healthcare providers, improving patient outcomes and operational efficiency.',
-    hero: 'https://images.unsplash.com/photo-1576091160550-112173f7f869?w=1200&h=600&fit=crop',
+    hero: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&h=600&fit=crop',
     challenges: [
       'Patient data security and HIPAA compliance',
       'Interoperability between healthcare systems',
@@ -35,7 +36,7 @@ const industriesData = {
     title: 'FinTech & Banking Solutions',
     subtitle: 'Secure Financial Technology for Modern Banking',
     description: 'Robust financial software solutions with enterprise-grade security and compliance for banks and financial institutions.',
-    hero: 'https://images.unsplash.com/photo-1563986768711-b3bcc596a3f7?w=1200&h=600&fit=crop',
+    hero: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=1200&h=600&fit=crop',
     challenges: [
       'Regulatory compliance (PCI-DSS, SOX)',
       'Fraud detection and prevention',
@@ -60,7 +61,7 @@ const industriesData = {
     title: 'EdTech Solutions',
     subtitle: 'Empowering Education Through Technology',
     description: 'Learning management systems and educational platforms that enhance student engagement and learning outcomes.',
-    hero: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1200&h=600&fit=crop',
+    hero: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&h=600&fit=crop',
     challenges: [
       'Hybrid learning environment management',
       'Student engagement and retention',
@@ -85,7 +86,7 @@ const industriesData = {
     title: 'E-Commerce & Retail Solutions',
     subtitle: 'Digital Storefronts That Drive Sales',
     description: 'Feature-rich e-commerce platforms designed to maximize conversions and streamline online retail operations.',
-    hero: 'https://images.unsplash.com/photo-1563062407-c3a5c742e553?w=1200&h=600&fit=crop',
+    hero: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1200&h=600&fit=crop',
     challenges: [
       'Cart abandonment and conversion optimization',
       'Inventory management across channels',
@@ -110,7 +111,7 @@ const industriesData = {
     title: 'Real Estate Technology',
     subtitle: 'Digital Solutions for Property Management',
     description: 'Comprehensive real estate platforms from property listings to tenant management and analytics.',
-    hero: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&h=600&fit=crop',
+    hero: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&h=600&fit=crop',
     challenges: [
       'Property listing management',
       'Virtual tours and 3D visualization',
@@ -135,7 +136,7 @@ const industriesData = {
     title: 'Manufacturing & IoT Solutions',
     subtitle: 'Smart Manufacturing for Industry 4.0',
     description: 'IoT sensors, real-time monitoring, and analytics solutions for modern manufacturing facilities.',
-    hero: 'https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1200&h=600&fit=crop',
+    hero: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&h=600&fit=crop',
     challenges: [
       'Production line monitoring',
       'Equipment predictive maintenance',
@@ -160,7 +161,7 @@ const industriesData = {
     title: 'Logistics & Supply Chain Solutions',
     subtitle: 'Optimize Every Step of Your Supply Chain',
     description: 'Real-time tracking, route optimization, and supply chain visibility solutions for logistics companies.',
-    hero: 'https://images.unsplash.com/photo-1586420560841-e0caf5d03842?w=1200&h=600&fit=crop',
+    hero: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&h=600&fit=crop',
     challenges: [
       'Real-time shipment tracking',
       'Route optimization and fuel efficiency',
@@ -185,7 +186,7 @@ const industriesData = {
     title: 'Travel & Hospitality Software',
     subtitle: 'Guest Experience Excellence',
     description: 'Booking systems, property management, and guest engagement platforms for travel and hospitality businesses.',
-    hero: 'https://images.unsplash.com/photo-1551632786-de41ec4a305b?w=1200&h=600&fit=crop',
+    hero: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1200&h=600&fit=crop',
     challenges: [
       'Multi-channel booking management',
       'Guest experience personalization',
@@ -210,7 +211,7 @@ const industriesData = {
     title: 'Retail & Point of Sale Solutions',
     subtitle: 'Modern POS and Retail Management',
     description: 'Complete retail solutions from POS systems to inventory and customer relationship management.',
-    hero: 'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=1200&h=600&fit=crop',
+    hero: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=600&fit=crop',
     challenges: [
       'Inventory across multiple locations',
       'Omnichannel retail experience',
@@ -235,7 +236,7 @@ const industriesData = {
     title: 'Technology & SaaS Solutions',
     subtitle: 'Building Scalable SaaS Platforms',
     description: 'Custom software development for technology companies and SaaS businesses requiring specialized solutions.',
-    hero: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=600&fit=crop',
+    hero: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&h=600&fit=crop',
     challenges: [
       'Scalability and performance',
       'Multi-tenancy architecture',
@@ -292,38 +293,58 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative pt-24 pb-16 bg-gradient-to-b from-slate-50 dark:from-slate-900/50 to-background overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-green-500 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-500 rounded-full blur-3xl"></div>
+      <section className="relative pt-32 pb-24 px-4 overflow-hidden bg-gradient-to-b from-white to-blue-50/20 dark:from-[#0d1929] dark:to-[#0f223d]/30 transition-colors duration-500">
+        {/* Decorative Orbs */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+          <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full blur-3xl opacity-[0.08] bg-gradient-to-br from-[#f9ab12] to-[#0d2064] animate-pulse duration-[8000ms]" />
+          <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full blur-3xl opacity-[0.06] bg-gradient-to-tr from-[#0d2064] to-[#f9ab12] animate-pulse duration-[12000ms]" />
         </div>
         <div className="max-w-7xl mx-auto px-4 relative z-10">
-          <div className="flex flex-col lg:flex-row gap-8 items-center">
+          <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1">
-              <h1 className="text-4xl lg:text-5xl font-bold mb-4 text-balance">{industry.title}</h1>
-              <p className="text-xl text-gray-600 dark:text-gray-400 mb-6">{industry.subtitle}</p>
-              <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 max-w-2xl">{industry.description}</p>
+              <span className="text-xs font-semibold text-[#f9ab12] uppercase tracking-widest bg-[#f9ab12]/10 px-4 py-1.5 rounded-full border border-[#f9ab12]/20">
+                Industries We Serve
+              </span>
+              <h1 className="text-4xl lg:text-6xl font-extrabold text-[#0d2064] dark:text-white mt-4 mb-4 leading-tight">
+                {industry.title}
+              </h1>
+              <p className="text-lg md:text-xl text-[#f9ab12] font-semibold mb-6">{industry.subtitle}</p>
+              <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 mb-8 leading-relaxed max-w-2xl">
+                {industry.description}
+              </p>
               <Link href="/contact">
-                <button className="px-8 py-3 bg-[#0d2064] text-white dark:bg-[#f9ab12] dark:text-[#0d2064] rounded-full font-bold hover:shadow-lg transition-all">
-                  Schedule Consultation <ArrowRight className="inline ml-2 w-5 h-5" />
+                <button className="px-8 py-4 bg-[#0d2064] text-white dark:bg-[#f9ab12] dark:text-[#0d2064] rounded-full font-bold hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 flex items-center gap-2 cursor-pointer">
+                  Schedule Consultation <ArrowRight className="w-5 h-5" />
                 </button>
               </Link>
             </div>
             <div className="flex-1">
-              <img src={industry.hero} alt={industry.title} className="rounded-lg shadow-2xl" />
+              <div className="relative group rounded-3xl overflow-hidden shadow-2xl border border-gray-100 dark:border-gray-800">
+                <img
+                  src={industry.hero}
+                  alt={industry.title}
+                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Key Metrics */}
-      <section className="py-16 px-4 bg-slate-50 dark:bg-slate-900/30">
+      <section className="py-16 px-4 bg-gradient-to-b from-blue-50/20 to-white dark:from-[#0f223d]/10 dark:to-[#0d1929] border-y border-gray-100 dark:border-gray-800/60">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
             {industry.metrics.map((metric, idx) => (
-              <div key={idx} className="text-center">
-                <div className="text-3xl font-bold text-[#f9ab12] mb-2">{metric.value}</div>
-                <p className="text-gray-600 dark:text-gray-400">{metric.label}</p>
+              <div
+                key={idx}
+                className="text-center p-6 bg-white dark:bg-[#1a2a3a] border border-gray-100 dark:border-gray-800/80 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300"
+              >
+                <div className="text-4xl font-extrabold text-[#f9ab12] mb-2">{metric.value}</div>
+                <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                  {metric.label}
+                </p>
               </div>
             ))}
           </div>
@@ -331,65 +352,112 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
       </section>
 
       {/* Industry Challenges */}
-      <section className="py-20 px-4">
+      <section className="py-24 px-4 bg-white dark:bg-[#0d1929]">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Industry Challenges We Address</h2>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="text-center mb-16">
+            <span className="text-xs font-semibold text-[#f9ab12] uppercase tracking-widest bg-[#f9ab12]/10 px-4 py-1.5 rounded-full border border-[#f9ab12]/20">
+              Challenges
+            </span>
+            <h2 className="text-3xl md:text-5xl font-bold text-[#0d2064] dark:text-white mt-4 mb-4">
+              Industry Challenges We Address
+            </h2>
+            <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+              Overcoming core complexities with tailored digital strategy and enterprise engineering.
+            </p>
+          </div>
+          <ScrollAnimateStagger className="grid md:grid-cols-2 gap-6">
             {industry.challenges.map((challenge, idx) => (
-              <div key={idx} className="flex gap-4 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-gray-200 dark:border-slate-700">
-                <Target className="w-6 h-6 text-[#f9ab12] flex-shrink-0" />
-                <p className="text-gray-700 dark:text-gray-300">{challenge}</p>
+              <div
+                key={idx}
+                className="flex gap-4 p-8 bg-gradient-to-br from-white to-blue-50/20 dark:from-[#1a2a3a] dark:to-[#1a2a3a]/80 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
+              >
+                <div className="w-10 h-10 rounded-xl bg-[#f9ab12]/10 flex items-center justify-center flex-shrink-0 text-[#f9ab12]">
+                  <Target className="w-5 h-5" />
+                </div>
+                <p className="text-base font-semibold text-[#0d2064] dark:text-gray-300 leading-relaxed">
+                  {challenge}
+                </p>
               </div>
             ))}
-          </div>
+          </ScrollAnimateStagger>
         </div>
       </section>
 
       {/* Our Solutions */}
-      <section className="py-20 px-4 bg-slate-50 dark:bg-slate-900/30">
+      <section className="py-24 px-4 bg-gradient-to-b from-white to-blue-50/20 dark:from-[#0d1929] dark:to-[#0f223d]/30">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Our Tailored Solutions</h2>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="text-center mb-16">
+            <span className="text-xs font-semibold text-[#f9ab12] uppercase tracking-widest bg-[#f9ab12]/10 px-4 py-1.5 rounded-full border border-[#f9ab12]/20">
+              Solutions
+            </span>
+            <h2 className="text-3xl md:text-5xl font-bold text-[#0d2064] dark:text-white mt-4 mb-4">
+              Our Tailored Solutions
+            </h2>
+            <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+              Innovative digital assets designed specifically for the complexities of your industry.
+            </p>
+          </div>
+          <ScrollAnimateStagger className="grid md:grid-cols-2 gap-6">
             {industry.solutions.map((solution, idx) => (
-              <div key={idx} className="p-6 rounded-lg bg-white dark:bg-slate-800/50 border border-gray-200 dark:border-slate-700 hover:shadow-lg transition-shadow">
+              <div
+                key={idx}
+                className="p-8 rounded-2xl bg-white dark:bg-[#1a2a3a] border border-gray-100 dark:border-gray-800 hover:border-[#f9ab12] dark:hover:border-[#f9ab12] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              >
                 <div className="flex items-start gap-4">
-                  <Zap className="w-6 h-6 text-[#f9ab12] flex-shrink-0 mt-1" />
+                  <div className="w-12 h-12 rounded-xl bg-[#f9ab12]/10 flex items-center justify-center flex-shrink-0 text-[#f9ab12]">
+                    <Zap className="w-6 h-6" />
+                  </div>
                   <div>
-                    <h3 className="font-bold text-lg mb-2">{solution.title}</h3>
-                    <p className="text-gray-600 dark:text-gray-400">{solution.description}</p>
+                    <h3 className="font-bold text-lg text-[#0d2064] dark:text-white mb-2">{solution.title}</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{solution.description}</p>
                   </div>
                 </div>
               </div>
             ))}
-          </div>
+          </ScrollAnimateStagger>
         </div>
       </section>
 
       {/* Case Study */}
-      <section className="py-20 px-4">
-        <div className="max-w-4xl mx-auto bg-gradient-to-r from-blue-600 to-blue-900 dark:from-blue-900 dark:to-blue-700 rounded-2xl p-12 text-white">
-          <TrendingUp className="w-12 h-12 mb-4" />
-          <h2 className="text-3xl font-bold mb-4">Success Story</h2>
-          <p className="text-lg mb-4 opacity-90">{industry.caseStudies}</p>
-          <p className="mb-6 opacity-80">See how we helped similar businesses in this industry achieve their goals and overcome challenges.</p>
-          <Link href="/portfolio">
-            <button className="px-6 py-3 bg-white text-blue-600 font-bold rounded-full hover:bg-gray-100 transition-all">
-              View Case Studies
-            </button>
-          </Link>
+      <section className="py-24 px-4 bg-white dark:bg-[#0d1929]">
+        <div className="max-w-5xl mx-auto">
+          <ScrollAnimate className="bg-gradient-to-br from-[#0d2064] to-[#0a1435] dark:from-[#1a2a3a] dark:to-[#0f223d]/40 rounded-3xl p-12 md:p-16 text-white border border-white/5 shadow-2xl relative overflow-hidden">
+            <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#f9ab12]/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative z-10">
+              <TrendingUp className="w-12 h-12 text-[#f9ab12] mb-6" />
+              <span className="text-xs font-bold text-[#f9ab12] uppercase tracking-widest bg-white/10 px-4 py-1.5 rounded-full border border-white/10">
+                Success Story
+              </span>
+              <h2 className="text-3xl md:text-5xl font-extrabold mt-6 mb-4">{industry.caseStudies}</h2>
+              <p className="text-base md:text-lg mb-8 opacity-90 max-w-3xl leading-relaxed">
+                Discover how we partnered to design, build, and deploy high-performance tech to drive real impact.
+              </p>
+              <Link href="/portfolio">
+                <button className="px-8 py-4 bg-[#f9ab12] text-[#0d2064] font-bold rounded-full hover:shadow-xl hover:bg-white transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer">
+                  View Case Studies
+                </button>
+              </Link>
+            </div>
+          </ScrollAnimate>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4">
+      <section className="py-24 px-4 bg-gradient-to-b from-white to-blue-50/20 dark:from-[#0d1929] dark:to-[#0f223d]/30">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Modernize Your {industry.title.split(' ')[0]} Solutions?</h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">Our team of experts is ready to discuss how we can help your business thrive in the digital age.</p>
-          <Link href="/contact">
-            <button className="px-8 py-3 bg-[#0d2064] text-white dark:bg-[#f9ab12] dark:text-[#0d2064] rounded-full font-bold hover:shadow-lg transition-all">
-              Get In Touch Today
-            </button>
-          </Link>
+          <ScrollAnimate>
+            <h2 className="text-3xl md:text-5xl font-bold text-[#0d2064] dark:text-white mb-4">
+              Ready to Modernize Your Solutions?
+            </h2>
+            <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
+              Our team of experts is ready to discuss how we can help your business thrive in the digital age.
+            </p>
+            <Link href="/contact">
+              <button className="px-8 py-4 bg-[#0d2064] text-white dark:bg-[#f9ab12] dark:text-[#0d2064] rounded-full font-bold hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer">
+                Get In Touch Today
+              </button>
+            </Link>
+          </ScrollAnimate>
         </div>
       </section>
 
