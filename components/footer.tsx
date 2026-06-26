@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import Link from 'next/link';
+
 
 export function Footer() {
   const currentYear = 2025;
@@ -58,7 +60,14 @@ export function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-2xl font-bold mb-2">Invozee</h3>
+            <Link href="/">
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                className="text-2xl font-bold text-primary dark:text-white cursor-pointer"
+              >
+                <img className="w-32 md:w-36 dark:brightness-110 mb-6" src="/invozee_Light.png" alt="Logo" />
+              </motion.div>
+            </Link>
             <p className="text-blue-100/80 dark:text-gray-400 text-sm">
               Transforming ideas into digital solutions that drive business growth.
             </p>

@@ -40,6 +40,7 @@ export function Navbar() {
   const [activeMenu, setActiveMenu] = useState<'services' | 'industries' | null>(null);
   const [menuTimer, setMenuTimer] = useState<NodeJS.Timeout | null>(null);
 
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -151,7 +152,11 @@ export function Navbar() {
               whileHover={{ scale: 1.03 }}
               className="text-2xl font-bold text-primary dark:text-white cursor-pointer"
             >
-              <img className="w-32 md:w-36 dark:brightness-110" src="/transparent_logo.png" alt="Logo" />
+              <img
+                className="w-32 md:w-36"
+                src={theme === "dark" ? "/invozee_Light.png" : "/invozee_Dark.png"}
+                alt="Logo"
+              />
             </motion.div>
           </Link>
 
@@ -163,11 +168,10 @@ export function Navbar() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`text-sm font-semibold tracking-wide transition-all duration-300 relative py-1 ${
-                    isActive
+                  className={`text-sm font-semibold tracking-wide transition-all duration-300 relative py-1 ${isActive
                       ? 'text-[#f9ab12]'
                       : 'text-gray-700 dark:text-gray-300 hover:text-[#f9ab12] dark:hover:text-[#f9ab12]'
-                  }`}
+                    }`}
                 >
                   {item.label}
                   {isActive && (
@@ -228,11 +232,10 @@ export function Navbar() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`text-sm font-semibold tracking-wide transition-colors py-1 ${
-                    isActive
+                  className={`text-sm font-semibold tracking-wide transition-colors py-1 ${isActive
                       ? 'text-[#f9ab12]'
                       : 'text-gray-700 dark:text-gray-300 hover:text-[#f9ab12] dark:hover:text-[#f9ab12]'
-                  }`}
+                    }`}
                   onClick={() => setIsOpen(false)}
                 >
                   {item.label}
