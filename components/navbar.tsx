@@ -155,7 +155,7 @@ export function Navbar() {
               {mounted && (
                 <img
                   className="w-32 md:w-36"
-                  src={theme === "dark" ? "/invozee_Light.png" : "/invozee_Dark.png"}
+                  src={theme === "light" ? "/invozee_Dark.png" : "/invozee_Light.png"}
                   alt="Logo"
                 />
               )}
