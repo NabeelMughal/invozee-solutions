@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { ExternalLink, Search, X, Code, Briefcase, Eye } from 'lucide-react';
 import Link from 'next/link';
@@ -23,6 +23,18 @@ export function Portfolio({ featuredOnly = false }: { featuredOnly?: boolean }) 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [selectedProject]);
+
   const projects: Project[] = [
     {
       id: 1,
@@ -30,7 +42,7 @@ export function Portfolio({ featuredOnly = false }: { featuredOnly?: boolean }) 
       category: 'ai',
       industry: 'AI & SaaS Platforms',
       description: 'AI-powered business growth platform combining scalable cloud backends with precision-engineered frontends. Features intelligent process automation, real-time analytics dashboards, and seamless API integrations for enterprise clients.',
-      image: '/portfolio/GrayVally-thumb.png',
+      image: '/portfolio/GrayVally.png',
       technologies: ['React', 'Node.js', 'OpenAI API', 'PostgreSQL', 'AWS'],
       languages: ['TypeScript', 'JavaScript', 'SQL'],
       frameworks: ['Next.js', 'Express.js', 'Tailwind CSS'],
@@ -42,7 +54,7 @@ export function Portfolio({ featuredOnly = false }: { featuredOnly?: boolean }) 
       category: 'enterprise',
       industry: 'Enterprise & ERP Systems',
       description: 'Comprehensive cloud-based construction management platform serving over 1 million users. Features project scheduling, budget management, client communication tools, subcontractor portals, and mobile-first field reporting.',
-      image: '/portfolio/Buildertrend-thumb.png',
+      image: '/portfolio/Buildertrend.png',
       technologies: ['Next.js', 'TypeScript', 'MongoDB', 'Stripe', 'AWS S3'],
       languages: ['TypeScript', 'JavaScript', 'C#'],
       frameworks: ['Next.js', 'Tailwind CSS', 'React Native'],
@@ -54,7 +66,7 @@ export function Portfolio({ featuredOnly = false }: { featuredOnly?: boolean }) 
       category: 'web',
       industry: 'Professional Portfolios & Branding',
       description: 'Sleek, interactive developer portfolio built with modern web technologies. Showcases expertise through animated project displays, skill visualizations, live GitHub integration, and a seamless contact experience.',
-      image: '/portfolio/GrayVally-thumb.png',
+      image: '/portfolio/LewisHadden.png',
       technologies: ['React', 'Three.js', 'GSAP', 'Framer Motion'],
       languages: ['JavaScript', 'HTML5', 'CSS3'],
       frameworks: ['Gatsby', 'Styled Components'],
@@ -66,7 +78,7 @@ export function Portfolio({ featuredOnly = false }: { featuredOnly?: boolean }) 
       category: 'web',
       industry: 'Healthcare & E-commerce',
       description: 'Doctor-formulated healthcare product platform featuring seamless Shopify integration, subscription management, telehealth appointment booking, and a personalized wellness dashboard backed by clinical expertise.',
-      image: '/portfolio/SugarMD-thumb.png',
+      image: '/portfolio/SugarMD.png',
       technologies: ['Next.js', 'Prisma', 'Stripe', 'Tailwind CSS', 'Shopify'],
       languages: ['TypeScript', 'GraphQL', 'SQL'],
       frameworks: ['Next.js', 'Shopify Storefront API', 'React Query'],
@@ -78,7 +90,7 @@ export function Portfolio({ featuredOnly = false }: { featuredOnly?: boolean }) 
       category: 'mobile',
       industry: 'Logistics & Fleet Tech',
       description: 'AI-powered last-mile delivery management platform with real-time driver tracking, automated route optimization, proof-of-delivery capture, and powerful analytics for delivery businesses of all sizes.',
-      image: '/portfolio/Onfleet-thumb.png',
+      image: '/portfolio/Onfleet.png',
       technologies: ['React Native', 'Firebase', 'Node.js', 'Google Maps API'],
       languages: ['JavaScript', 'TypeScript', 'Swift', 'Kotlin'],
       frameworks: ['React Native', 'Firebase Cloud Functions', 'Expo'],
@@ -90,7 +102,7 @@ export function Portfolio({ featuredOnly = false }: { featuredOnly?: boolean }) 
       category: 'web',
       industry: 'Hospitality & Restaurants',
       description: 'Premium fine dining restaurant website with online reservation system, digital menu management, event booking, loyalty program integration, and a POS-connected kitchen order display system.',
-      image: '/portfolio/GulshanBadda-thumb.png',
+      image: '/portfolio/GulshanBadda.png',
       technologies: ['Next.js', 'Python', 'PostgreSQL', 'Stripe API', 'Vercel'],
       languages: ['TypeScript', 'Python', 'SQL'],
       frameworks: ['Next.js', 'Django REST Framework', 'Tailwind CSS'],
@@ -102,7 +114,7 @@ export function Portfolio({ featuredOnly = false }: { featuredOnly?: boolean }) 
       category: 'web',
       industry: 'SaaS & Media Platforms',
       description: 'Full-featured podcast hosting platform supporting unlimited shows, AI-powered episode transcription, multi-platform RSS distribution, embedded player widgets, advanced download analytics, and team collaboration tools.',
-      image: '/portfolio/Transistor-thumb.png',
+      image: '/portfolio/Transistor.png',
       technologies: ['Ruby on Rails', 'React', 'PostgreSQL', 'AWS S3', 'Redis'],
       languages: ['JavaScript', 'Ruby', 'TypeScript'],
       frameworks: ['Ruby on Rails', 'React', 'Stimulus.js'],
@@ -126,7 +138,7 @@ export function Portfolio({ featuredOnly = false }: { featuredOnly?: boolean }) 
       category: 'mobile',
       industry: 'FinTech Applications',
       description: 'Commission-free investment and trading platform offering stocks, options, ETFs, and cryptocurrency trading. Built with real-time market data feeds, fractional shares, instant deposit capabilities, and a clean mobile-first interface designed for retail investors.',
-      image: '/portfolio/Robinhood-thumb.png',
+      image: '/portfolio/RobinHood.png',
       technologies: ['React Native', 'Python', 'Django', 'PostgreSQL', 'Redis'],
       languages: ['Python', 'TypeScript', 'Swift', 'Kotlin', 'SQL'],
       frameworks: ['Django REST Framework', 'React Native', 'Celery'],
@@ -138,7 +150,7 @@ export function Portfolio({ featuredOnly = false }: { featuredOnly?: boolean }) 
       category: 'enterprise',
       industry: 'Real Estate Platforms',
       description: 'Tech-forward real estate marketplace connecting buyers, sellers, and agents with zero commission model. Includes MLS listing integration, AI-powered property valuations, mortgage calculators, virtual tour scheduling, and document e-signing workflows.',
-      image: '/portfolio/Homie-thumb.png',
+      image: '/portfolio/Homie.png',
       technologies: ['Next.js', 'GraphQL', 'MongoDB', 'AWS S3', 'Mapbox'],
       languages: ['TypeScript', 'GraphQL', 'JavaScript', 'SQL'],
       frameworks: ['Next.js', 'Apollo Client', 'Tailwind CSS'],
@@ -146,15 +158,15 @@ export function Portfolio({ featuredOnly = false }: { featuredOnly?: boolean }) 
     },
     {
       id: 11,
-      title: 'Kareo - Healthcare Management Platform',
+      title: 'Tebra - Healthcare Management Platform',
       category: 'ai',
       industry: 'Healthcare Systems',
       description: 'Cloud-based clinical and billing management platform for independent medical practices. Features electronic health records (EHR), AI-powered medical coding suggestions, insurance eligibility verification, appointment scheduling, and patient engagement portals.',
-      image: '/portfolio/Kareo-thumb.png',
+      image: '/portfolio/Tebra.png',
       technologies: ['React', 'Python', 'FastAPI', 'PostgreSQL', 'AWS'],
       languages: ['Python', 'TypeScript', 'SQL', 'HL7 FHIR'],
       frameworks: ['FastAPI', 'React', 'SQLAlchemy'],
-      liveUrl: 'https://kareo.com/',
+      liveUrl: 'https://www.tebra.com/',
     },
     {
       id: 12,
@@ -162,7 +174,7 @@ export function Portfolio({ featuredOnly = false }: { featuredOnly?: boolean }) 
       category: 'web',
       industry: 'E-commerce Solutions',
       description: 'AI-powered B2B wholesale platform connecting independent retailers with global brands. Features smart product recommendations, net 60-day payment terms, automated return policies, integrated inventory sync, and a built-in brand discovery engine.',
-      image: '/portfolio/Faire-thumb.png',
+      image: '/portfolio/Faire.png',
       technologies: ['Next.js', 'Node.js', 'MongoDB', 'Redis', 'Stripe Connect'],
       languages: ['TypeScript', 'JavaScript', 'Python', 'SQL'],
       frameworks: ['Next.js', 'Express.js', 'Tailwind CSS'],
@@ -174,7 +186,7 @@ export function Portfolio({ featuredOnly = false }: { featuredOnly?: boolean }) 
       category: 'enterprise',
       industry: 'CRM Systems',
       description: 'Enterprise-grade CRM platform with integrated marketing automation, sales pipeline management, customer service ticketing, and AI-powered lead scoring. Supports custom workflows, deep third-party integrations, and comprehensive reporting dashboards.',
-      image: '/portfolio/HubSpot-thumb.png',
+      image: '/portfolio/Hubspot.png',
       technologies: ['React', 'Java', 'PostgreSQL', 'Elasticsearch', 'Kafka'],
       languages: ['Java', 'TypeScript', 'JavaScript', 'SQL'],
       frameworks: ['Spring Boot', 'React', 'GraphQL'],
@@ -228,11 +240,10 @@ export function Portfolio({ featuredOnly = false }: { featuredOnly?: boolean }) 
                 <button
                   key={cat.id}
                   onClick={() => setFilter(cat.id)}
-                  className={`px-5 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 ${
-                    filter === cat.id
-                      ? 'bg-[#0d2064] text-white shadow-md shadow-[#0d2064]/10'
-                      : 'bg-white dark:bg-[#0d1929] text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800'
-                  }`}
+                  className={`px-5 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 ${filter === cat.id
+                    ? 'bg-[#0d2064] text-white shadow-md shadow-[#0d2064]/10'
+                    : 'bg-white dark:bg-[#0d1929] text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800'
+                    }`}
                 >
                   {cat.label}
                 </button>
@@ -330,7 +341,7 @@ export function Portfolio({ featuredOnly = false }: { featuredOnly?: boolean }) 
       {/* Project Detail Modal */}
       <AnimatePresence>
         {selectedProject && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-y-auto">
             {/* Backdrop */}
             <div
               className="absolute inset-0 bg-black/60 backdrop-blur-sm"
@@ -338,7 +349,7 @@ export function Portfolio({ featuredOnly = false }: { featuredOnly?: boolean }) 
             />
 
             {/* Modal */}
-            <div className="relative w-full max-w-2xl bg-white dark:bg-[#1a2a3a] border border-gray-100 dark:border-gray-800 rounded-3xl overflow-hidden shadow-2xl z-10 max-h-[90vh] flex flex-col">
+            <div className="relative w-full max-w-2xl bg-white dark:bg-[#1a2a3a] border border-gray-100 dark:border-gray-800 rounded-3xl overflow-hidden shadow-2xl z-10 h-[90vh] flex flex-col">
               {/* Close Button */}
               <button
                 onClick={() => setSelectedProject(null)}
@@ -353,7 +364,7 @@ export function Portfolio({ featuredOnly = false }: { featuredOnly?: boolean }) 
                 <img
                   src={selectedProject.image}
                   alt={selectedProject.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-[300px] object-cover"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = '/placeholder.jpg';
                   }}
@@ -370,7 +381,10 @@ export function Portfolio({ featuredOnly = false }: { featuredOnly?: boolean }) 
               </div>
 
               {/* Scrollable Content */}
-              <div className="p-6 md:p-8 overflow-y-auto space-y-6 flex-1">
+              <div
+                className="flex-1 min-h-0 overflow-y-auto p-6 md:p-8 space-y-6 overscroll-contain"
+                onWheel={(e) => e.stopPropagation()}
+              >
                 {/* Description */}
                 <div>
                   <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 flex items-center gap-1.5">
