@@ -32,7 +32,23 @@ export default function RootLayout({
     // (e.g. data-new-gr-c-s-check-loaded from Grammarly) from causing mismatch errors
     <html lang="en" className="bg-background" suppressHydrationWarning>
       <body className="font-sans antialiased bg-background text-foreground" suppressHydrationWarning>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `;(function() {
+              try {
+                var theme = window.localStorage.getItem('theme');
+                if (theme === 'light') {
+                  document.documentElement.classList.remove('dark');
+                } else {
+                  document.documentElement.classList.add('dark');
+                }
+              } catch (e) {
+                document.documentElement.classList.add('dark');
+              }
+            })()`,
+          }}
+        />
+        <ThemeProvider attribute="class" defaultTheme="dark">
           <SmoothScroll>
             {children}
           </SmoothScroll>
